@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ g.csrf_token }}">
+  <title>{% block title %}FitNut{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='logging.js') }}" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">FitNut</a>
+    <nav aria-label="Main navigation">
+    {% if g.user %}
+      {% for path, label in [('/dashboard','Overview'),('/profile','Profile'),('/food','Food'),('/activity','Activity'),('/sleep','Sleep')] %}
+      <a href="{{ path }}" {% if request.path == path %}aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+      {% if g.user.role == 'admin' %}<a href="/admin" {% if request.path == '/admin' %}aria-current="page"{% endif %}>Users</a>{% endif %}
+      <button class="nav-button" type="button" data-logout>Log out</button>
+    {% else %}
+      <a href="/login">Log in</a><a href="/register">Create account</a>
+    {% endif %}
+    </nav>
+  </header>
+  <main>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

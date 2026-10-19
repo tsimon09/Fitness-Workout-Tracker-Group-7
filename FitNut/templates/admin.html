@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}User management · FitNut{% endblock %}
+{% block content %}
+<h1>Manage users</h1>
+<p>Change a user's role or account status below.</p>
+<section class="panel"><div class="section-top"><h2>Accounts</h2><span class="pill">{{ users|length }} shown</span></div>
+<div class="table-scroll"><table><thead><tr><th>Person</th><th>Role</th><th>Status</th><th>Last online</th><th>Action</th></tr></thead><tbody>
+{% for user in users %}<tr><td><strong>{{ user.first_name }} {{ user.last_name }}</strong><br><span class="muted">{{ user.email }}</span></td><td colspan="2"><form class="admin-form" data-api="/admin/users/{{ user.user_id }}"><div class="field-pair"><label class="sr-only" for="role-{{ user.user_id }}">Role for {{ user.first_name }} {{ user.last_name }}</label><select id="role-{{ user.user_id }}" name="role" {% if user.user_id == g.user.user_id %}disabled{% endif %}>{% for role in ['user','admin'] %}<option value="{{ role }}" {% if user.role == role %}selected{% endif %}>{{ role|capitalize }}</option>{% endfor %}</select><label class="sr-only" for="status-{{ user.user_id }}">Status for {{ user.first_name }} {{ user.last_name }}</label><select id="status-{{ user.user_id }}" name="status" {% if user.user_id == g.user.user_id %}disabled{% endif %}>{% for status in ['active','suspended'] %}<option value="{{ status }}" {% if user.status == status %}selected{% endif %}>{{ status|capitalize }}</option>{% endfor %}</select></div></form></td><td>{% if user.last_online %}<time data-date="{{ user.last_online }}">{{ user.last_online }}</time>{% else %}Never{% endif %}</td><td>{% if user.user_id == g.user.user_id %}<span class="hint">Your account</span>{% else %}<button class="secondary" type="button" data-admin-save="{{ user.user_id }}">Save</button>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div><p class="hint">Your own role and status can be changed by another administrator.</p></section>
+{% endblock %}

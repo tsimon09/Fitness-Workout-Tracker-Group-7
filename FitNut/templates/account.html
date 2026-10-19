@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Create account' if mode == 'register' else 'Log in' }} · FitNut{% endblock %}
+{% block content %}
+<section class="account-panel">
+    <h1>{{ 'Create account' if mode == 'register' else 'Log in' }}</h1>
+    <form data-api="/{{ mode }}" data-redirect="{{ '/login' if mode == 'register' else '/dashboard' }}">
+      {% if mode == 'register' %}
+      <label>First name<input name="first_name" autocomplete="given-name" maxlength="50" required></label>
+      <label>Last name<input name="last_name" autocomplete="family-name" maxlength="50" required></label>
+      {% endif %}
+      <label>Email address<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+      <label>Password<input name="password" type="password" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" {% if mode == 'register' %}minlength="8"{% endif %} maxlength="128" required></label>
+      {% if mode == 'register' %}<label>Confirm password<input name="password_confirmation" type="password" autocomplete="new-password" minlength="8" maxlength="128" required></label><p class="hint">Use at least 8 characters.</p>{% endif %}
+      <p class="form-message" role="alert" hidden></p>
+      <button class="button full" type="submit">{{ 'Create account' if mode == 'register' else 'Log in' }}</button>
+    </form>
+    <p class="account-switch">{{ 'Already registered?' if mode == 'register' else 'New to FitNut?' }} <a href="{{ '/login' if mode == 'register' else '/register' }}">{{ 'Log in' if mode == 'register' else 'Create an account' }}</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Profile · FitNut{% endblock %}
+{% block content %}
+<section class="profile-panel">
+<h1>Your profile</h1>
+<p>Save your goals and dietary restrictions here. You can leave fields blank. AI plans aren't connected yet.</p>
+<form id="profile-form">
+  <fieldset><legend>About you</legend>
+    <div class="field-pair">
+      <label>Age<input name="age" type="number" min="1" max="120" step="1" value="{{ profile.age if profile.age is not none else '' }}"></label>
+      <label>Height (cm)<input name="height_cm" type="number" min="0.01" max="300" step="0.01" value="{{ profile.height_cm if profile.height_cm is not none else '' }}"></label>
+    </div>
+    <label>Weight (kg)<input name="weight_kg" type="number" min="0.01" max="999.99" step="0.01" value="{{ profile.weight_kg if profile.weight_kg is not none else '' }}"></label>
+    <div class="field-pair">
+      <label>Fitness goal<select name="fitness_goal"><option value="">Not provided</option>{% for code, label in goals.items() %}<option value="{{ code }}" {% if profile.fitness_goal == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <label>Experience<select name="fitness_level"><option value="">Not provided</option>{% for code, label in levels.items() %}<option value="{{ code }}" {% if profile.fitness_level == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+    </div>
+  </fieldset>
+  <fieldset><legend>Targets</legend>
+    <div class="field-pair">
+      <label>Daily calorie target<input name="daily_calorie_target" type="number" min="0.01" max="99999999.99" step="0.01" value="{{ profile.daily_calorie_target if profile.daily_calorie_target is not none else '' }}"></label>
+      <label>Weekly activity target (minutes)<input name="weekly_activity_minutes" type="number" min="0.01" max="99999999.99" step="0.01" value="{{ profile.weekly_activity_minutes if profile.weekly_activity_minutes is not none else '' }}"></label>
+    </div>
+    <p class="hint">These are the same targets used on your food and activity pages.</p>
+  </fieldset>
+  <h2>Food allergies</h2>
+  <label>Allergy information<select name="allergy_status" id="allergy-status">
+    <option value="not_provided" {% if profile.allergy_status == 'not_provided' %}selected{% endif %}>Not provided</option>
+    <option value="none_reported" {% if profile.allergy_status == 'none_reported' %}selected{% endif %}>None reported</option>
+    <option value="listed" {% if profile.allergy_status == 'listed' %}selected{% endif %}>I have allergies to list</option>
+  </select></label>
+  <fieldset id="allergy-details" {% if profile.allergy_status != 'listed' %}disabled{% endif %}><legend>Allergies to avoid</legend>
+    <div class="allergen-grid">{% for code, label in allergens.items() %}
+      <label class="checkbox-row"><input type="checkbox" name="allergens" value="{{ code }}" {% if code in profile.allergens %}checked{% endif %}>{{ label }}</label>
+    {% endfor %}</div>
+    <label for="profile-other-allergies">Other allergies</label><textarea id="profile-other-allergies" name="other_allergies" rows="3" maxlength="2000" placeholder="One per line">{{ profile.other_allergies|join('\n') }}</textarea>
+  </fieldset>
+  <fieldset><legend>Intolerances and preferences</legend>
+    <label for="profile-intolerances">Intolerances</label><textarea id="profile-intolerances" name="intolerances" rows="3" maxlength="2000" placeholder="One per line, e.g. lactose">{{ profile.intolerances|join('\n') }}</textarea>
+    <label>Dietary pattern<select name="dietary_pattern"><option value="">Not provided</option>{% for code, label in diets.items() %}<option value="{{ code }}" {% if profile.dietary_pattern == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+    <label for="profile-preferences">Food preferences</label><textarea id="profile-preferences" name="preferences" rows="3" maxlength="2000" placeholder="One per line, e.g. no spicy food">{{ profile.preferences|join('\n') }}</textarea>
+    <p class="hint">Keep allergies in the allergy section. These lists accept up to 20 items each.</p>
+  </fieldset>
+  <p class="form-message" role="alert" hidden></p>
+  <div class="actions"><button type="submit">Save profile</button><button type="reset">Reset changes</button></div>
+</form>
+</section>
+<script src="{{ url_for('static', filename='profile.js') }}" defer></script>
+{% endblock %}
