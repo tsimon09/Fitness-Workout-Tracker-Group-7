@@ -1,0 +1,585 @@
+{
+  "info": {
+    "name": "FitNut Sprint 3",
+    "description": "Working local endpoints. Set demo_email and demo_password to a test FitNut account. Postman retains the login cookie; Login stores csrf_token for changes. Administrator requests require an administrator account. No MySQL credentials are included.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    },
+    {
+      "key": "demo_email",
+      "value": "demo@example.com",
+      "type": "string"
+    },
+    {
+      "key": "demo_password",
+      "value": "replace-with-test-password",
+      "type": "string"
+    },
+    {
+      "key": "csrf_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "food_log_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "activity_log_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "sleep_log_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "target_user_id",
+      "value": "0",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Check FitNut server",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/health"
+      },
+      "response": []
+    },
+    {
+      "name": "Accounts - run Register once, then Login",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Demo\",\n  \"last_name\": \"User\",\n  \"email\": \"{{demo_email}}\",\n  \"password\": \"{{demo_password}}\",\n  \"password_confirmation\": \"{{demo_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{demo_email}}\",\n  \"password\": \"{{demo_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login works\", () => pm.response.to.have.status(200));",
+                  "if (pm.response.code === 200) pm.collectionVariables.set(\"csrf_token\", pm.response.json().csrf_token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Current user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/me"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Session is active\", () => pm.response.to.have.status(200));",
+                  "if (pm.response.code === 200) pm.collectionVariables.set(\"csrf_token\", pm.response.json().csrf_token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Food journal - Login first",
+      "item": [
+        {
+          "name": "Add food",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/food-logs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"food_name\": \"Oatmeal\",\n  \"quantity\": 1,\n  \"quantity_unit\": \"cup\",\n  \"meal_type\": \"breakfast\",\n  \"calories\": 150,\n  \"protein_g\": 5,\n  \"carbs_g\": 27,\n  \"fat_g\": 3,\n  \"logged_at\": \"2026-10-20T12:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Entry saved\", () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"food_log_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List food",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/food-logs"
+          },
+          "response": []
+        },
+        {
+          "name": "Update food",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/food-logs/{{food_log_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"food_name\": \"Oatmeal\",\n  \"quantity\": 1,\n  \"quantity_unit\": \"cup\",\n  \"meal_type\": \"breakfast\",\n  \"calories\": 150,\n  \"protein_g\": 5,\n  \"carbs_g\": 27,\n  \"fat_g\": 3,\n  \"logged_at\": \"2026-10-20T12:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete food",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/food-logs/{{food_log_id}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Activity journal - Login first",
+      "item": [
+        {
+          "name": "Add activity",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/activity-logs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activity_name\": \"Walking\",\n  \"duration_minutes\": 30,\n  \"calories_burned\": 100,\n  \"notes\": \"Morning walk\",\n  \"intensity\": \"moderate\",\n  \"calorie_source\": \"manual\",\n  \"performed_at\": \"2026-10-20T13:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Entry saved\", () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"activity_log_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/activity-logs"
+          },
+          "response": []
+        },
+        {
+          "name": "Update activity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/activity-logs/{{activity_log_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activity_name\": \"Walking\",\n  \"duration_minutes\": 30,\n  \"calories_burned\": 100,\n  \"notes\": \"Morning walk\",\n  \"intensity\": \"moderate\",\n  \"calorie_source\": \"manual\",\n  \"performed_at\": \"2026-10-20T13:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete activity",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/activity-logs/{{activity_log_id}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sleep journal - Login first",
+      "item": [
+        {
+          "name": "Add sleep",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/sleep-logs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sleep_start\": \"2026-10-04T22:00:00Z\",\n  \"sleep_end\": \"2026-10-05T06:00:00Z\",\n  \"sleep_quality\": 4,\n  \"notes\": \"Felt rested\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Entry saved\", () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"sleep_log_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List sleep",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/sleep-logs"
+          },
+          "response": []
+        },
+        {
+          "name": "Update sleep",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/sleep-logs/{{sleep_log_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sleep_start\": \"2026-10-04T22:00:00Z\",\n  \"sleep_end\": \"2026-10-05T06:00:00Z\",\n  \"sleep_quality\": 4,\n  \"notes\": \"Felt rested\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete sleep",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/sleep-logs/{{sleep_log_id}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Administrator only - set target_user_id first",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/admin/users"
+          },
+          "response": []
+        },
+        {
+          "name": "Change user role or status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/admin/users/{{target_user_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"user\",\n  \"status\": \"active\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Finish the session",
+      "item": [
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": "{{base_url}}/logout",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Logout works\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"csrf_token\", \"\");"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check session ended",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/me"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Session has ended\", () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sprint 3 lookup, preview, and meal save - Login first",
+      "item": [
+        {
+          "name": "Search USDA foods",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/food-search?q=Bananas%20raw"
+          }
+        },
+        {
+          "name": "Review a calorie estimate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activity_name\": \"Walking\",\n  \"intensity\": \"moderate\",\n  \"calorie_source\": \"estimated\",\n  \"body_weight_kg\": 70,\n  \"duration_minutes\": 30,\n  \"performed_at\": \"2026-10-20T13:00:00Z\"\n}"
+            },
+            "url": "{{base_url}}/activity-preview"
+          }
+        },
+        {
+          "name": "Save a two-food meal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"meal_type\": \"breakfast\",\n  \"logged_at\": \"2026-10-20T12:00:00Z\",\n  \"meal_notes\": \"Demo meal\",\n  \"items\": [\n    {\n      \"food_name\": \"Oatmeal\",\n      \"quantity\": 1,\n      \"quantity_unit\": \"cup\",\n      \"calories\": 150\n    },\n    {\n      \"food_name\": \"Apple\",\n      \"quantity\": 1,\n      \"quantity_unit\": \"piece\",\n      \"calories\": 80\n    }\n  ]\n}"
+            },
+            "url": "{{base_url}}/meals"
+          }
+        }
+      ]
+    }
+  ]
+}

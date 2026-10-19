@@ -1,0 +1,53 @@
+/* Basic styles for the FitNut forms and pages. */
+body {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #222;
+  background: white;
+}
+
+a { color: #0645ad; }
+header { border-bottom: 1px solid #ccc; padding-bottom: 15px; margin-bottom: 25px; }
+.brand { display: block; margin-bottom: 10px; font-size: 24px; font-weight: bold; }
+nav { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+nav a[aria-current] { font-weight: bold; }
+h1 { font-size: 28px; }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+main { margin-bottom: 30px; }
+
+button, input, select, textarea { font: inherit; }
+button, .button { padding: 6px 12px; border: 1px solid #999; background: #eee; color: #222; cursor: pointer; }
+.button { display: inline-block; text-decoration: none; }
+button:disabled { opacity: .5; cursor: default; }
+label { display: block; margin-bottom: 15px; }
+input, select, textarea { display: block; box-sizing: border-box; width: 100%; margin-top: 4px; padding: 7px; border: 1px solid #aaa; background: white; }
+textarea { resize: vertical; }
+.account-panel { max-width: 400px; }
+.field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.journal-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 35px; }
+.actions, .record-actions { display: flex; gap: 10px; }
+.record { border-top: 1px solid #ccc; padding: 15px 0; }
+.record-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.note-text { white-space: pre-wrap; }
+.hint, .muted, .optional, time { color: #555; font-size: 14px; }
+.notice { padding: 10px; margin-bottom: 20px; background: #f3f3f3; border: 1px solid #ccc; }
+.form-message, .danger, .error { color: #a00000; }
+[hidden] { display: none !important; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px; border: 1px solid #ccc; }
+th { background: #f3f3f3; }
+.table-scroll { overflow-x: auto; }
+.admin-form .field-pair { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+#food-results button { display: block; width: 100%; text-align: left; margin-bottom: 8px; }
+#entry-review, #meal-draft { border: 1px solid #aaa; padding: 12px; margin-top: 20px; }
+#summary-date { max-width: 200px; }
+
+@media (max-width: 650px) {
+  .journal-layout { grid-template-columns: 1fr; }
+  .field-pair { grid-template-columns: 1fr; gap: 0; }
+}

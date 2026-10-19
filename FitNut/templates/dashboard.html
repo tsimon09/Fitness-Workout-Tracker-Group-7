@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Overview · FitNut{% endblock %}
+{% block content %}
+<h1>Welcome, {{ g.user.first_name }}</h1>
+<p>Select a page to add or view your records.</p>
+<table>
+  <thead><tr><th>Records</th><th>Entries saved</th></tr></thead>
+  <tbody>
+    {% for kind, label in [('food', 'Food'), ('activity', 'Activity'), ('sleep', 'Sleep')] %}
+    <tr><td><a href="/{{ kind }}">{{ label }}</a></td><td>{{ counts[kind] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h2>Account</h2>
+<p>{{ g.user.email }}<br>Role: {{ g.user.role }}</p>
+{% endblock %}
