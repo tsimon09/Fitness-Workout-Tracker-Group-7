@@ -13,6 +13,7 @@ from accounts import accounts, load_user, login_required, admin_required
 from db import close_db, fetch_all, fetch_one, to_json
 from logs import logs, LOG_TYPES
 from log_data import count_items, read_items, meal_choices
+from profiles import profiles
 
 app = Flask(__name__)
 trusted_hosts = [host.strip() for host in os.getenv("TRUSTED_HOSTS", "localhost,127.0.0.1").split(",") if host.strip()]
@@ -25,6 +26,7 @@ if os.getenv("TRUST_PROXY", "false").lower() == "true":
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.register_blueprint(accounts)
 app.register_blueprint(logs)
+app.register_blueprint(profiles)
 app.before_request(load_user)
 app.teardown_appcontext(close_db)
 

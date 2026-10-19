@@ -17,6 +17,8 @@ Food search uses USDA. Choose a result and enter grams or servings, or enter a f
 
 Activity logging estimates calories for walking, running, cycling, and swimming using weight, duration, and intensity. Other activities accept manual calories. Review before saving.
 
+The Profile page saves weight, targets, allergies, intolerances, and food preferences.
+
 AI plans haven't been added yet.
 
 ## Database

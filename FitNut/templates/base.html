@@ -14,7 +14,7 @@
     <a class="brand" href="/">FitNut</a>
     <nav aria-label="Main navigation">
     {% if g.user %}
-      {% for path, label in [('/dashboard','Overview'),('/food','Food'),('/activity','Activity'),('/sleep','Sleep')] %}
+      {% for path, label in [('/dashboard','Overview'),('/profile','Profile'),('/food','Food'),('/activity','Activity'),('/sleep','Sleep')] %}
       <a href="{{ path }}" {% if request.path == path %}aria-current="page"{% endif %}>{{ label }}</a>
       {% endfor %}
       {% if g.user.role == 'admin' %}<a href="/admin" {% if request.path == '/admin' %}aria-current="page"{% endif %}>Users</a>{% endif %}

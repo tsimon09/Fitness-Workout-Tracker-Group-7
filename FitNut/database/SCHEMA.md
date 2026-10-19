@@ -45,12 +45,34 @@ Indexes: `idx_sessions_user` (user_id); `PRIMARY` (session_id) UNIQUE; `token_ha
 | `updated_at` | `datetime(6)` | NO | — | CURRENT_TIMESTAMP(6); DEFAULT_GENERATED |
 | `daily_calorie_target` | `decimal(10,2)` | YES | — | NULL |
 | `weekly_activity_minutes` | `decimal(10,2)` | YES | — | NULL |
+| `age` | `tinyint unsigned` | YES | — | NULL |
+| `height_cm` | `decimal(5,2)` | YES | — | NULL |
+| `fitness_goal` | `enum('maintain','lose_weight','gain_muscle','improve_fitness')` | YES | — | NULL |
+| `fitness_level` | `enum('beginner','intermediate','advanced')` | YES | — | NULL |
+| `dietary_pattern` | `enum('no_preference','vegetarian','vegan','pescatarian')` | YES | — | NULL |
+| `allergy_status` | `enum('not_provided','none_reported','listed')` | NO | — | not_provided |
 
 Indexes: `PRIMARY` (user_id) UNIQUE.
 
 - `chk_daily_target`: ``((`daily_calorie_target` is null) or (`daily_calorie_target` > 0))``
+- `chk_profile_age`: ``((`age` is null) or (`age` between 1 and 120))``
+- `chk_profile_height`: ``((`height_cm` is null) or ((`height_cm` > 0) and (`height_cm` <= 300)))``
 - `chk_profile_weight`: ``(`weight_kg` > 0)``
 - `chk_weekly_target`: ``((`weekly_activity_minutes` is null) or (`weekly_activity_minutes` > 0))``
+
+## user_restrictions
+
+| Column | MySQL type | Nullable | Key / relationship | Default / extra |
+| --- | --- | --- | --- | --- |
+| `restriction_id` | `int` | NO | PK | —; auto_increment |
+| `user_id` | `int` | NO | FK → `users.user_id`; delete CASCADE | — |
+| `kind` | `enum('allergy','intolerance','preference')` | NO | — | — |
+| `code` | `varchar(100)` | NO | — | — |
+| `label` | `varchar(100)` | NO | — | — |
+
+Indexes: `PRIMARY` (restriction_id) UNIQUE; `uq_user_restriction` (user_id,kind,code) UNIQUE.
+
+- `chk_restriction_label`: ``(char_length(trim(`label`)) > 0)``
 
 ## meal_types
 

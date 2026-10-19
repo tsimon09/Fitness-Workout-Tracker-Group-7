@@ -26,6 +26,17 @@ CREATE TABLE IF NOT EXISTS user_profiles (
   CONSTRAINT chk_profile_weight CHECK (weight_kg IS NULL OR weight_kg > 0)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS user_restrictions (
+  restriction_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  kind ENUM('allergy','intolerance','preference') NOT NULL,
+  code VARCHAR(100) NOT NULL,
+  label VARCHAR(100) NOT NULL,
+  UNIQUE KEY uq_user_restriction (user_id, kind, code),
+  CONSTRAINT fk_restriction_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  CONSTRAINT chk_restriction_label CHECK (CHAR_LENGTH(TRIM(label)) > 0)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS sessions (
   session_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,

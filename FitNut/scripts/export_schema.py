@@ -6,7 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app import app
 from db import fetch_all
 
-TABLES = ('users', 'sessions', 'user_profiles', 'meal_types', 'eating_events',
+TABLES = ('users', 'sessions', 'user_profiles', 'user_restrictions', 'meal_types', 'eating_events',
           'units_of_measure', 'food_catalog', 'food_entries', 'activity_types', 'activity_events', 'sleep_logs')
 
 

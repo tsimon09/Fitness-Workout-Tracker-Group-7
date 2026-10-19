@@ -46,8 +46,17 @@ th { background: #f3f3f3; }
 #food-results button { display: block; width: 100%; text-align: left; margin-bottom: 8px; }
 #entry-review, #meal-draft { border: 1px solid #aaa; padding: 12px; margin-top: 20px; }
 #summary-date { max-width: 200px; }
+.profile-panel { max-width: 700px; }
+.profile-panel fieldset { border: 1px solid #aaa; margin: 18px 0; padding: 15px; }
+.profile-panel legend { font-weight: bold; }
+.profile-panel label[for] { margin-bottom: 4px; }
+.profile-panel textarea { margin-bottom: 15px; }
+.allergen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+.checkbox-row { margin: 0; }
+.checkbox-row input { display: inline-block; width: auto; margin: 0 6px 0 0; }
 
 @media (max-width: 650px) {
   .journal-layout { grid-template-columns: 1fr; }
   .field-pair { grid-template-columns: 1fr; gap: 0; }
+  .allergen-grid { grid-template-columns: repeat(2, 1fr); }
 }

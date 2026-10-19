@@ -2,7 +2,7 @@
 
 [Table definitions](SCHEMA.md) list the columns, types, and keys.
 
-Meals belong to users and contain food entries. Foods link to a unit and optionally a USDA food record. Activities belong to users and link to an activity type. Profiles hold weight and logging targets.
+Meals belong to users and contain food entries. Foods link to a unit and optionally a USDA food record. Activities belong to users and link to an activity type. Profiles hold basic details, goals, and targets. `user_restrictions` keeps allergies, intolerances, and preferences as separate user-owned rows.
 
 Setup runs `schema.sql`, `other-tables.sql`, and the numbered migrations through `scripts/init_database.py`. Run the normal setup script again to apply updates. The top-level `fitness_tracker_schema.sql` is the older design.
 
