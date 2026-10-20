@@ -11,6 +11,7 @@
     {% endfor %}
   </tbody>
 </table>
+{% include 'almond.html' %}
 <h2>Account</h2>
 <p>{{ g.user.email }}<br>Role: {{ g.user.role }}</p>
 {% endblock %}

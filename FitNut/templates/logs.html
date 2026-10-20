@@ -33,6 +33,7 @@
 {% endif %}
   <p class="form-message" role="alert" hidden></p><div class="actions"><button class="button" type="submit">Save entry</button><button type="button" class="secondary" id="cancel-edit" hidden>Cancel edit</button></div>
 </form></section>
+<div>
 <section class="panel history-panel"><div class="section-top"><h2>Your entries</h2><span class="pill">{{ records|length }} shown</span></div><p class="hint">Your latest 100 entries. Dates are shown in your local time.</p>
 {% if records %}
 <div class="record-list">
@@ -49,6 +50,8 @@
 </div>
 {% else %}<p>No entries yet.</p>{% endif %}
 </section>
+{% if kind in ['food', 'activity'] %}{% include 'almond.html' %}{% endif %}
+</div>
 </div>
 <script type="application/json" id="record-data">{{ records|tojson }}</script>
 {% endblock %}
