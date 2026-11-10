@@ -58,7 +58,7 @@ See the [application setup](FitNut/README.md) and [database table reference](Fit
 
 ## Sprint Submission / Demo Day — October 20
 
-- [ ] Complete all assigned sections.
+- [X] Complete all assigned sections.
 - [ ] Verify the database design and implementation.
 - [ ] Finalize the sprint report.
 - [ ] Prepare and test the project demonstration.
