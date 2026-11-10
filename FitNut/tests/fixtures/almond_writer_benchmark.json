@@ -1,0 +1,2932 @@
+{
+  "metadata": {
+    "purpose": "writer_qualification",
+    "frozen_prompt_sha256": "e925a65bbc4f16df63bf80244adf604dedd3f1b449f87adbef330de9739fc77b",
+    "authored_by": "luna-independent-benchmark",
+    "design": "80 independently composed cases: 20 development and 60 held-out, balanced by expected acceptance.",
+    "portion_note": "Gram quantities are synthetic benchmark portions chosen to vary examples. They are not clinical recommendations or serving guidance.",
+    "evidence_note": "Food composition fields retain their reviewed source IDs and URLs. USDA nutrient records do not establish allergen absence."
+  },
+  "references": {
+    "food_composition": {
+      "title": "USDA FoodData Central individual food records",
+      "source_url": "https://fdc.nal.usda.gov/",
+      "scope": "Food identity and nutrient entries are drawn from the reviewed USDA records identified on each catalog item. Nutrient values are composition data, not clinical guidance."
+    },
+    "allergen_context": {
+      "title": "FDA Food Allergies",
+      "source_url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "scope": "Used only for the general distinction that almonds are tree nuts; catalog ingredient and allergen evidence remains item-specific."
+    }
+  },
+  "catalog": {
+    "101": {
+      "food_id": 101,
+      "food_name": "Almonds, raw",
+      "ingredients": [
+        "almonds"
+      ],
+      "allergens": [
+        "tree nut"
+      ],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-2346393",
+      "source_url": "https://fdc.nal.usda.gov/food-details/2346393/nutrients",
+      "calories": 583.6,
+      "protein_g": 21.45,
+      "carbs_g": 20.035,
+      "fat_g": 51.09,
+      "fiber_g": 12.5,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "102": {
+      "food_id": 102,
+      "food_name": "Apples, raw, with skin",
+      "ingredients": [
+        "apple"
+      ],
+      "allergens": [],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-171688",
+      "source_url": "https://fdc.nal.usda.gov/food-details/171688/nutrients",
+      "calories": 52,
+      "protein_g": 0.26,
+      "carbs_g": 13.81,
+      "fat_g": 0.17,
+      "fiber_g": 2.4,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "103": {
+      "food_id": 103,
+      "food_name": "Oats, whole grain, rolled, old fashioned",
+      "ingredients": [
+        "oats"
+      ],
+      "allergens": [],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-2346396",
+      "source_url": "https://fdc.nal.usda.gov/food-details/2346396/nutrients",
+      "calories": 378.87,
+      "protein_g": 13.5,
+      "carbs_g": 68.66,
+      "fat_g": 5.89,
+      "fiber_g": null,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "104": {
+      "food_id": 104,
+      "food_name": "Almond oat beverage, unspecified brand",
+      "ingredients": [
+        "almond",
+        "water",
+        "oats"
+      ],
+      "allergens": [
+        "tree nut"
+      ],
+      "evidence_complete": false,
+      "evidence_id": "incomplete-compound-label-104",
+      "source_url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "calories": 23,
+      "protein_g": 0.6,
+      "carbs_g": 3.2,
+      "fat_g": 1.1,
+      "fiber_g": 0.3,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "WR-001",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          },
+          {
+            "food_id": 103,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-002",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 120
+          },
+          {
+            "food_id": 102,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The selected catalog food is almond, which conflicts with the listed tree nut allergy."
+    },
+    {
+      "case_id": "WR-003",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-004",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 24
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The listed custom allergy matches the selected apple ingredient."
+    },
+    {
+      "case_id": "WR-005",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-006",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The selected oats conflict with the stated intolerance."
+    },
+    {
+      "case_id": "WR-007",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 18
+          },
+          {
+            "food_id": 103,
+            "grams": 52
+          }
+        ],
+        "instructions": [
+          "Combine the selected catalog foods and serve."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-008",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 125
+          },
+          {
+            "food_id": 103,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A checked meal cannot be produced while allergy status is unknown."
+    },
+    {
+      "case_id": "WR-009",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          },
+          {
+            "food_id": 103,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-010",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Beverage and fruit cup",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The compound beverage lacks reviewed complete ingredient evidence."
+    },
+    {
+      "case_id": "WR-011",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-012",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Slice the apples, then finish the dish with almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The instructions name almonds even though the tree nut restriction excludes them."
+    },
+    {
+      "case_id": "WR-013",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-014",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "unrelated-evidence-record"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The recipe evidence identifier does not match the selected catalog food."
+    },
+    {
+      "case_id": "WR-015",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 18
+          },
+          {
+            "food_id": 103,
+            "grams": 52
+          }
+        ],
+        "instructions": [
+          "Combine the selected catalog foods and serve."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-016",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 40
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The ingredient list repeats a catalog ID instead of listing distinct foods."
+    },
+    {
+      "case_id": "WR-017",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          },
+          {
+            "food_id": 103,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-018",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The listed custom allergy matches the selected apple ingredient."
+    },
+    {
+      "case_id": "WR-019",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The listed profile does not conflict with these complete catalog items, and their evidence references agree."
+    },
+    {
+      "case_id": "WR-020",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The selected oats conflict with the stated intolerance."
+    },
+    {
+      "case_id": "WR-021",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-022",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 96
+          },
+          {
+            "food_id": 102,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A selected almond conflicts with the declared tree nut allergy."
+    },
+    {
+      "case_id": "WR-023",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-024",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    },
+    {
+      "case_id": "WR-025",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-026",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Oats are selected despite the declared oat intolerance."
+    },
+    {
+      "case_id": "WR-027",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-028",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 18
+          },
+          {
+            "food_id": 103,
+            "grams": 52
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The allergy state is not known, so the recipe cannot be cleared for delivery."
+    },
+    {
+      "case_id": "WR-029",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-030",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Beverage and fruit cup",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The compound item is not backed by a reviewed complete record."
+    },
+    {
+      "case_id": "WR-031",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-032",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Slice the apples, then finish the dish with almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Preparation text adds almonds that conflict with the profile even though they are absent from the foods list."
+    },
+    {
+      "case_id": "WR-033",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-034",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 150
+          },
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A selected almond conflicts with the declared tree nut allergy."
+    },
+    {
+      "case_id": "WR-035",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-036",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 18
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Oats are selected despite the declared oat intolerance."
+    },
+    {
+      "case_id": "WR-037",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-038",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    },
+    {
+      "case_id": "WR-039",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-040",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "unrelated-evidence-record"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The recipe cites an evidence ID unrelated to its selected food."
+    },
+    {
+      "case_id": "WR-041",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-042",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Beverage and fruit cup",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The compound item is not backed by a reviewed complete record."
+    },
+    {
+      "case_id": "WR-043",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-044",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Slice the apples, then finish the dish with almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Preparation text adds almonds that conflict with the profile even though they are absent from the foods list."
+    },
+    {
+      "case_id": "WR-045",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-046",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    },
+    {
+      "case_id": "WR-047",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-048",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 45
+          },
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A selected almond conflicts with the declared tree nut allergy."
+    },
+    {
+      "case_id": "WR-049",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-050",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          },
+          {
+            "food_id": 103,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The allergy state is not known, so the recipe cannot be cleared for delivery."
+    },
+    {
+      "case_id": "WR-051",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-052",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 40
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The same food ID occurs twice in the recipe."
+    },
+    {
+      "case_id": "WR-053",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-054",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 96
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Oats are selected despite the declared oat intolerance."
+    },
+    {
+      "case_id": "WR-055",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-056",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    },
+    {
+      "case_id": "WR-057",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-058",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "unrelated-evidence-record"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The recipe cites an evidence ID unrelated to its selected food."
+    },
+    {
+      "case_id": "WR-059",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-060",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Beverage and fruit cup",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The compound item is not backed by a reviewed complete record."
+    },
+    {
+      "case_id": "WR-061",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-062",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Slice the apples, then finish the dish with almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Preparation text adds almonds that conflict with the profile even though they are absent from the foods list."
+    },
+    {
+      "case_id": "WR-063",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-064",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 45
+          },
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A selected almond conflicts with the declared tree nut allergy."
+    },
+    {
+      "case_id": "WR-065",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-066",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "oats"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Cook the oats in water until soft and serve warm."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Oats are selected despite the declared oat intolerance."
+    },
+    {
+      "case_id": "WR-067",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-068",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 18
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    },
+    {
+      "case_id": "WR-069",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-070",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 96
+          },
+          {
+            "food_id": 103,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The allergy state is not known, so the recipe cannot be cleared for delivery."
+    },
+    {
+      "case_id": "WR-071",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-072",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Beverage and fruit cup",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The compound item is not backed by a reviewed complete record."
+    },
+    {
+      "case_id": "WR-073",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple almond oat cup",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 24
+          },
+          {
+            "food_id": 102,
+            "grams": 108
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-074",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Sliced apple",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 80
+          },
+          {
+            "food_id": 102,
+            "grams": 40
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The same food ID occurs twice in the recipe."
+    },
+    {
+      "case_id": "WR-075",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Oat and apple breakfast",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 38
+          },
+          {
+            "food_id": 102,
+            "grams": 110
+          },
+          {
+            "food_id": 103,
+            "grams": 38
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Top with sliced apples and almonds before serving."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-076",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond oat bowl",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 100
+          }
+        ],
+        "instructions": [
+          "Slice the apples, then finish the dish with almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Preparation text adds almonds that conflict with the profile even though they are absent from the foods list."
+    },
+    {
+      "case_id": "WR-077",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fruit with oats",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 125
+          },
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-078",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Apple oat bowl",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 96
+          },
+          {
+            "food_id": 102,
+            "grams": 42
+          }
+        ],
+        "instructions": [
+          "Slice the apples and serve with the almonds."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393",
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "A selected almond conflicts with the declared tree nut allergy."
+    },
+    {
+      "case_id": "WR-079",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Almond apple snack plate",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 120
+          },
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Cook the oats until soft.",
+          "Slice the apples and fold them into the oats."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688",
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "The selected foods have complete reviewed records and do not match the profile restrictions; the evidence set is exact."
+    },
+    {
+      "case_id": "WR-080",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [],
+        "other_allergies": [
+          "apple"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Warm oats",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 45
+          }
+        ],
+        "instructions": [
+          "Wash, slice, and serve the apples."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared custom apple allergy is present in the selected food record."
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+<section class="almond" aria-labelledby="almond-title" id="almond" data-mode="default">
+  <div class="almond-head">
+    <h2 id="almond-title"><img id="almond-mark" src="{{ url_for('static', filename='nuts/almond.png') }}" alt="">Ask Almond</h2>
+    <span id="almond-status" role="status">Loading…</span>
+  </div>
+  <p class="almond-unavailable" id="almond-unavailable" hidden>Almond can't write new meals yet. Your saved chats, favorites, and preferences still work.</p>
+  <div class="almond-zone">
+    <div id="almond-workspace">
+      <div class="segmented almond-modes" role="radiogroup" aria-label="Ask Almond mode">
+        <label><input type="radio" name="almond-mode" id="almond-mode-default" value="default" checked><span>Default</span></label>
+        <label><input type="radio" name="almond-mode" id="almond-mode-fitness" value="fitness"><span>Fitness</span></label>
+      </div>
+      <div id="almond-messages" role="log" aria-live="polite" aria-label="Conversation" tabindex="0"></div>
+      <div id="almond-recipes"></div>
+      <div id="almond-suggestions" class="almond-suggestions" role="group" aria-label="Ideas to start" hidden></div>
+      <form id="almond-form" hidden>
+        <label class="sr-only" for="almond-question">Ask Almond anything about food, fitness, or your routine.</label>
+        <div class="composer">
+          <textarea id="almond-question" rows="1" maxlength="2000" placeholder="Ask Almond" required></textarea>
+          <button class="send" id="almond-send" type="submit" aria-label="Ask Almond">↑</button>
+        </div>
+        <p class="hint almond-assurance">Confirmed dietary restrictions always apply. <button type="button" class="text-button" id="almond-edit-diet">Add / edit dietary details</button></p>
+      </form>
+      <p id="almond-error" class="form-message" role="alert" hidden></p>
+    </div>
+    <section class="almond-gate" id="almond-gate" aria-labelledby="almond-gate-title" hidden>
+      <h3 id="almond-gate-title">Any food allergies?</h3>
+      <p>Almond needs an answer before you chat. You only do this once, and you can change it in Profile.</p>
+      <p class="almond-warning">Almond's AI suggestions can be wrong. It may miss ingredients, allergens or preparation details, and nutrition figures are estimates. Check actual product labels and preparation conditions. These suggestions are not a substitute for medical advice.</p>
+      <p id="almond-gate-error" class="form-message" role="alert" hidden></p>
+      <div class="gate-choices">
+        <button type="button" id="almond-gate-none">No allergies</button>
+        <button type="button" class="button" id="almond-gate-list">I have allergies</button>
+      </div>
+    </section>
+  </div>
+
+  <dialog id="almond-diet-dialog" aria-labelledby="almond-diet-title">
+    <form id="almond-diet-form">
+      <h3 id="almond-diet-title">Dietary details</h3>
+      <label>Allergies
+        <select name="allergy_status" id="almond-allergy-status">
+          <option value="none_reported">No allergies</option><option value="listed">I have allergies to list</option>
+        </select>
+      </label>
+      <fieldset id="almond-allergy-details" disabled><legend>Allergies to avoid</legend>
+        <div class="allergen-grid">
+          {% for code, label in [('milk','Milk'),('egg','Egg'),('peanut','Peanut'),('tree_nuts','Tree nuts'),('soy','Soy'),('wheat','Wheat'),('fish','Fish'),('shellfish','Shellfish'),('sesame','Sesame')] %}
+          <label class="checkbox-row"><input type="checkbox" name="allergens" value="{{ code }}">{{ label }}</label>
+          {% endfor %}
+        </div>
+        <label for="almond-other-allergies">Other allergies, one per line</label><textarea id="almond-other-allergies" name="other_allergies" rows="2" maxlength="10100"></textarea>
+      </fieldset>
+      <label for="almond-intolerances">Intolerances, one per line</label><textarea id="almond-intolerances" name="intolerances" rows="2" maxlength="10100"></textarea>
+      <label>Eating pattern<select name="dietary_pattern"><option value="">Not set</option><option value="no_preference">No preference</option><option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option><option value="pescatarian">Pescatarian</option></select></label>
+      <label for="almond-preferences">Food preferences, not restrictions, one per line</label><textarea id="almond-preferences" name="preferences" rows="2" maxlength="10100"></textarea>
+      <p id="almond-diet-error" class="form-message" role="alert" hidden></p>
+      <div class="actions"><button type="submit" class="button">Save dietary details</button><button type="button" id="almond-close-diet">Cancel</button></div>
+      <p class="hint"><a href="/profile">Open your full Profile</a></p>
+    </form>
+  </dialog>
+
+  <dialog id="almond-meal-dialog" aria-labelledby="almond-meal-title">
+    <div class="meal-top">
+      <h3 id="almond-meal-title"></h3>
+      <div class="actions">
+        <button class="icon-button" type="button" id="almond-meal-favorite" aria-pressed="false" aria-label="Save to favorites">♡</button>
+        <button class="icon-button" type="button" id="almond-meal-close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="meal-picture" role="img" aria-label="No picture for this meal yet"><svg viewBox="0 0 48 48" aria-hidden="true"><path class="bowl" d="M6 22h36a18 18 0 0 1-36 0Z"/><path class="steam" d="M17 16c-3-3 3-5 0-9M26 16c-3-3 3-5 0-9"/></svg></div>
+    <div id="almond-meal-body"></div>
+    <p class="hint" id="almond-meal-message" role="status"></p>
+    <div class="actions"><button class="button" type="button" id="almond-meal-log">Log this meal</button></div>
+  </dialog>
+
+  <div class="almond-drawers">
+    <details id="almond-chats"><summary>Saved chats</summary>
+      <div class="chat-controls">
+        <label>Conversation<select id="almond-history"><option value="">New conversation</option></select></label>
+        <button type="button" id="almond-new" hidden>New chat</button>
+        <button type="button" id="almond-delete" hidden>Delete chat</button>
+      </div>
+    </details>
+    <details><summary>Your favorites</summary><div id="almond-favorites"></div></details>
+    <details><summary>Personal preferences</summary><form id="almond-memory">
+      <label>Preferred cuisines, one per line<textarea name="cuisines" rows="2" maxlength="1200"></textarea></label>
+      <div class="field-pair"><label>Cooking time (minutes)<input name="cooking_minutes" type="number" min="1" max="480"></label><label>Food budget preference<input name="food_budget" maxlength="100" placeholder="e.g. under $8 per meal"></label></div>
+      <p class="hint">Favorites do not determine your taste. Confirm lasting restrictions in Profile.</p>
+      <div class="actions"><button type="submit">Confirm and save preferences</button><button class="text-button" type="button" id="almond-clear-memory">Clear these preferences</button></div>
+    </form></details>
+  </div>
+</section>

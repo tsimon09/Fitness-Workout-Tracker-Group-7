@@ -1,0 +1,30 @@
+/* Profile control refinements use the shared almond and charcoal tokens. */
+.profile-panel .profile-measure { min-width: 0; }
+.profile-panel .control-label { display: block; margin-bottom: 6px; color: var(--text-strong); font-weight: 600; }
+.profile-panel .height-picker, .profile-panel .unit-input { display: flex; align-items: center; gap: 8px; }
+.profile-panel .height-picker select { min-width: 0; flex: 1; }
+.profile-panel .unit-input input { min-width: 0; flex: 1; }
+.profile-panel .unit-input span { color: var(--muted); font-weight: 600; }
+.profile-panel .profile-measure small, .profile-panel .target-control small { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+.profile-panel .metric-value { display: none; }
+.profile-panel .profile-choice-pair { align-items: start; }
+.profile-panel .choice-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.profile-panel .choice-group legend { margin-bottom: 8px; color: var(--text-strong); font-weight: 600; }
+.profile-panel .choice-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.profile-panel .choice-card { position: relative; display: block; cursor: pointer; }
+.profile-panel .choice-card input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.profile-panel .choice-card span { display: flex; min-height: 48px; align-items: center; justify-content: center; padding: 8px 12px; border: 1px solid var(--control-line); border-radius: var(--radius-field); background: var(--surface); color: var(--text); text-align: center; font-weight: 500; }
+.profile-panel .choice-card input:checked + span { border-color: var(--accent); background: var(--sand); color: var(--text-strong); box-shadow: inset 0 0 0 1px var(--accent); }
+.profile-panel .choice-card input:focus-visible + span { outline: 3px solid var(--text-strong); outline-offset: 2px; }
+.profile-panel .target-control { min-width: 0; }
+.profile-panel .target-control > label { color: var(--text-strong); font-weight: 600; }
+.profile-panel .target-unit { color: var(--muted); font-size: 14px; font-weight: 500; }
+.profile-panel .target-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(112px, .75fr) 42px; align-items: center; gap: 10px; margin-top: 6px; }
+.profile-panel .target-range { width: 100%; accent-color: var(--accent); }
+.profile-panel .target-number { min-width: 0; }
+.profile-panel .target-clear { min-width: 42px; min-height: 42px; padding: 4px; border: 1px solid var(--control-line); border-radius: var(--radius-field); background: var(--surface); color: var(--text); font-size: 23px; line-height: 1; }
+.profile-panel .target-clear:hover { background: var(--sand); }
+@media (max-width: 650px) {
+  .profile-panel .choice-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-panel .target-row { grid-template-columns: minmax(0, 1fr) minmax(92px, .7fr) 40px; gap: 6px; }
+}

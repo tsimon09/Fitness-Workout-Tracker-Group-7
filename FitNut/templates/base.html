@@ -5,26 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ g.csrf_token }}">
   <title>{% block title %}FitNut{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='fitnut-logo.png') }}" type="image/png">
+  <link rel="preload" href="{{ url_for('static', filename='fonts/bricolage-grotesque-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
   <script src="{{ url_for('static', filename='logging.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='almond.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='sky.js') }}" defer></script>
+  {% block page_scripts %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
-    <a class="brand" href="/">FitNut</a>
+    <a class="brand" href="/"><img src="{{ url_for('static', filename='fitnut-logo.png') }}" alt="">FitNut</a>
     <nav aria-label="Main navigation">
     {% if g.user %}
-      {% for path, label in [('/dashboard','Overview'),('/profile','Profile'),('/food','Food'),('/activity','Activity'),('/sleep','Sleep')] %}
+      {% for path, label in [('/dashboard','Overview'),('/food','Food'),('/activity','Activity'),('/sleep','Sleep'),('/profile','Profile')] %}
       <a href="{{ path }}" {% if request.path == path %}aria-current="page"{% endif %}>{{ label }}</a>
       {% endfor %}
       {% if g.user.role == 'admin' %}<a href="/admin" {% if request.path == '/admin' %}aria-current="page"{% endif %}>Users</a>{% endif %}
       <button class="nav-button" type="button" data-logout>Log out</button>
     {% else %}
-      <a href="/login">Log in</a><a href="/register">Create account</a>
+      <a href="/login" {% if request.path == '/login' %}aria-current="page"{% endif %}>Log in</a>
+      <a href="/register" {% if request.path == '/register' %}aria-current="page"{% endif %}>Create account</a>
     {% endif %}
     </nav>
   </header>
-  <main>
+  <main id="main" tabindex="-1">
+    {% if config.get('ALMOND_PERSONAL_SANDBOX') %}
+    <p class="notice" role="status">Personal preview · Experimental recommendations. Confirm restrictions in Profile and verify actual food labels.</p>
+    {% endif %}
     <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
     {% block content %}{% endblock %}
   </main>

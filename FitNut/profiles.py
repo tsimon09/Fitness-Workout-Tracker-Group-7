@@ -1,11 +1,9 @@
-"""Profile details and dietary restrictions for the signed-in account."""
-import hashlib
-
+"""Save profile details and food restrictions."""
 from flask import Blueprint, g, render_template, request
 
 from accounts import login_required
 from db import execute, fetch_all, fetch_one, get_db, to_json
-from validation import number, payload, text
+from validation import number, payload
 
 profiles = Blueprint('profiles', __name__)
 
@@ -14,7 +12,7 @@ ALLERGENS = {
     'soy': 'Soy', 'wheat': 'Wheat', 'fish': 'Fish', 'shellfish': 'Shellfish', 'sesame': 'Sesame',
 }
 GOALS = {'maintain': 'Maintain weight', 'lose_weight': 'Lose weight',
-         'gain_muscle': 'Build muscle', 'improve_fitness': 'Improve fitness'}
+         'gain_weight': 'Gain weight', 'gain_muscle': 'Build muscle', 'improve_fitness': 'Improve fitness'}
 LEVELS = {'beginner': 'Beginner', 'intermediate': 'Intermediate', 'advanced': 'Advanced'}
 DIETS = {'no_preference': 'No preference', 'vegetarian': 'Vegetarian',
          'vegan': 'Vegan', 'pescatarian': 'Pescatarian'}
@@ -54,13 +52,20 @@ def choice(data, key, options):
 
 def entries(data, key):
     items = data.get(key, [])
-    if not isinstance(items, list) or len(items) > 20:
-        raise ValueError(key.replace('_', ' ').capitalize() + ' must be a list of up to 20 items')
-    unique = {}
+    if not isinstance(items, list) or len(items) > 100:
+        raise ValueError(key.replace('_', ' ').capitalize() + ' must be a list of up to 100 items')
+    labels = []
+    seen = set()
     for item in items:
-        label = ' '.join(text({'restriction': item}, 'restriction', 100).split())
-        unique.setdefault(label.casefold(), label)
-    return list(unique.values())
+        if not isinstance(item, str) or not item.strip():
+            raise ValueError('Enter a name for each restriction')
+        label = ' '.join(item.split())
+        if len(label) > 100:
+            raise ValueError('Restriction names must be 100 characters or less')
+        if label.casefold() not in seen:
+            labels.append(label)
+            seen.add(label.casefold())
+    return labels
 
 
 def checked_profile(data):
@@ -80,9 +85,11 @@ def checked_profile(data):
     if values['allergy_status'] not in ('not_provided', 'none_reported', 'listed'):
         raise ValueError('Choose whether allergies are not provided, none reported, or listed')
     known = data.get('allergens', [])
-    if not isinstance(known, list) or len(known) > len(ALLERGENS) or any(
-            not isinstance(code, str) or code not in ALLERGENS for code in known):
+    if not isinstance(known, list) or len(known) > len(ALLERGENS):
         raise ValueError('Choose allergies from the list or use the other allergies field')
+    for code in known:
+        if not isinstance(code, str) or code not in ALLERGENS:
+            raise ValueError('Choose allergies from the list or use the other allergies field')
     known = set(known)
     aliases = {value.casefold(): code for code, value in ALLERGENS.items()}
     aliases.update({code: code for code in ALLERGENS})
@@ -93,8 +100,8 @@ def checked_profile(data):
             known.add(code)
         else:
             other.append(label)
-    if len(known) + len(other) > 20:
-        raise ValueError('Enter up to 20 allergies')
+    if len(known) + len(other) > 100:
+        raise ValueError('Enter up to 100 allergies')
     if values['allergy_status'] == 'listed' and not (known or other):
         raise ValueError('Select an allergy or enter one under other allergies')
     if values['allergy_status'] != 'listed' and (known or other):
@@ -102,11 +109,8 @@ def checked_profile(data):
     restrictions = [('allergy', code, ALLERGENS[code]) for code in ALLERGENS if code in known]
     for kind, labels in [('allergy', other), ('intolerance', entries(data, 'intolerances')),
                          ('preference', entries(data, 'preferences'))]:
-        for label in labels:
-            # Stable codes keep custom labels distinct without treating them as
-            # verified allergen mappings for a future planner.
-            code = 'custom-' + hashlib.sha256(label.casefold().encode()).hexdigest()
-            restrictions.append((kind, code, label))
+        for index, label in enumerate(labels, start=1):
+            restrictions.append((kind, 'custom-' + str(index), label))
     return values, restrictions
 
 
@@ -127,16 +131,24 @@ def profile_data():
     data = payload()
     if set(data) - set(PROFILE_COLUMNS) - set(LIST_FIELDS):
         raise ValueError('Send only profile fields')
-    # Match the logging routes' lock so profile saves and weight/goal updates
-    # cannot overwrite one another from stale reads.
+    # Logging and profile saves use the same account lock.
     fetch_one('SELECT user_id FROM users WHERE user_id=%s FOR UPDATE', (g.user['user_id'],))
     old, exists = read_profile()
-    values, restrictions = checked_profile({**old, **data})
-    columns = list(values)
-    execute('INSERT INTO user_profiles (user_id,' + ','.join(columns) + ') VALUES (' +
-            ','.join(['%s'] * (len(columns) + 1)) + ') ON DUPLICATE KEY UPDATE ' +
-            ','.join(key + '=VALUES(' + key + ')' for key in columns) + ',updated_at=UTC_TIMESTAMP(6)',
-            (g.user['user_id'], *values.values()))
+    old.update(data)
+    values, restrictions = checked_profile(old)
+    execute('''INSERT INTO user_profiles
+        (user_id, age, height_cm, weight_kg, fitness_goal, fitness_level,
+         dietary_pattern, daily_calorie_target, weekly_activity_minutes, allergy_status)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        ON DUPLICATE KEY UPDATE
+        age=VALUES(age), height_cm=VALUES(height_cm), weight_kg=VALUES(weight_kg),
+        fitness_goal=VALUES(fitness_goal), fitness_level=VALUES(fitness_level),
+        dietary_pattern=VALUES(dietary_pattern), daily_calorie_target=VALUES(daily_calorie_target),
+        weekly_activity_minutes=VALUES(weekly_activity_minutes), allergy_status=VALUES(allergy_status),
+        updated_at=UTC_TIMESTAMP(6)''',
+        (g.user['user_id'], values['age'], values['height_cm'], values['weight_kg'],
+         values['fitness_goal'], values['fitness_level'], values['dietary_pattern'],
+         values['daily_calorie_target'], values['weekly_activity_minutes'], values['allergy_status']))
     execute('DELETE FROM user_restrictions WHERE user_id=%s', (g.user['user_id'],))
     for kind, code, label in restrictions:
         execute('INSERT INTO user_restrictions (user_id,kind,code,label) VALUES (%s,%s,%s,%s)',

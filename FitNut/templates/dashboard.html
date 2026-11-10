@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Overview · FitNut{% endblock %}
+{% block page_scripts %}{% include '_nut_scripts.html' %}{% endblock %}
 {% block content %}
-<h1>Welcome, {{ g.user.first_name }}</h1>
-<p>Select a page to add or view your records.</p>
-<p><a href="/profile">Set up or edit your profile</a> to save your goals and dietary restrictions.</p>
-<table>
-  <thead><tr><th>Records</th><th>Entries saved</th></tr></thead>
-  <tbody>
-    {% for kind, label in [('food', 'Food'), ('activity', 'Activity'), ('sleep', 'Sleep')] %}
-    <tr><td><a href="/{{ kind }}">{{ label }}</a></td><td>{{ counts[kind] }}</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
-<h2>Account</h2>
-<p>{{ g.user.email }}<br>Role: {{ g.user.role }}</p>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-numbers">
+    <p class="hero-date" id="today-date"></p>
+    <h1 class="sr-only" id="hero-title">Today</h1>
+    <div id="today-totals"><p class="facts-note">Loading totals…</p></div>
+  </div>
+  <div class="jar-stage" id="jar-stage"></div>
+  <div class="hero-side">
+    <h2 class="sr-only" id="log-title">Add to your log</h2>
+    <ul class="log-links" aria-labelledby="log-title">
+      <li><a class="log-link" href="/food"><img src="{{ url_for('static', filename='nuts/acorn.png') }}" alt=""><span><strong>Log food</strong><span class="status" id="food-status">Loading…</span><span class="count">{{ counts.food }} entries saved</span></span></a></li>
+      <li><a class="log-link" href="/activity"><span class="ring" id="activity-ring"></span><span><strong>Log activity</strong><span class="status" id="activity-status">Loading…</span><span class="count">{{ counts.activity }} entries saved</span></span></a><progress class="sr-only" id="activity-progress" aria-label="Activity minutes against your weekly target"></progress></li>
+      <li><a class="log-link" href="/sleep"><svg class="moon-icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M28 28A14 14 0 0 1 15 6a16 16 0 1 0 19 19 14 14 0 0 1-6 3Z"/></svg><span><strong>Log sleep</strong><span class="status" id="sleep-status">Loading…</span><span class="count">{{ counts.sleep }} entries saved</span></span></a></li>
+    </ul>
+    <div class="nut-legend" id="nut-legend" aria-label="What each size means in calories"></div>
+  </div>
+</section>
+
+{% include 'almond.html' %}
+
+<section class="panel goal-panel" aria-labelledby="goals-title">
+  <div class="section-top"><h2 id="goals-title">Your goals and restrictions</h2><a href="/profile">Edit goals and restrictions</a></div>
+  <dl class="goal-summary" id="goal-summary"><div><dt>Loading…</dt><dd></dd></div></dl>
+  <div class="overview-account"><span>{{ g.user.email }}</span><span>Role: {{ g.user.role }}</span></div>
+</section>
+<script src="{{ url_for('static', filename='overview.js') }}" defer></script>
 {% endblock %}

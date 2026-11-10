@@ -1,6 +1,7 @@
 """USDA lookup, with a local cache; saved entries keep nutrition snapshots."""
 import json
 import os
+import re
 from decimal import Decimal, ROUND_HALF_UP
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -17,9 +18,9 @@ class FoodServiceUnavailable(Exception):
     pass
 
 
-def usda_search(query):
+def usda_search(query, data_type='SR Legacy'):
     params = urlencode({'api_key': os.getenv('USDA_API_KEY', 'DEMO_KEY'), 'query': query,
-                        'pageSize': 10, 'dataType': 'SR Legacy'})
+                        'pageSize': 10, 'dataType': data_type})
     # Fixed host and parameters only: users cannot supply an arbitrary URL.
     request = Request('https://api.nal.usda.gov/fdc/v1/foods/search?' + params,
                       headers={'User-Agent': 'FitNut-Sprint3/1.0'})
@@ -38,11 +39,17 @@ def search_foods(query):
     try:
         foods = usda_search(query)
     except FoodServiceUnavailable:
-        rows = fetch_all('SELECT * FROM food_catalog WHERE food_name LIKE %s ORDER BY food_name LIMIT 10',
-                         ('%' + query.replace('%', '').replace('_', '') + '%',))
+        terms = re.findall(r'\w+', query, flags=re.UNICODE)[:10]
+        clauses = ' AND '.join('food_name LIKE %s' for _ in terms) or '1=0'
+        rows = fetch_all('SELECT * FROM food_catalog WHERE ' + clauses + ' ORDER BY food_name LIMIT 10',
+                         tuple('%' + term + '%' for term in terms))
         if rows:
             return rows, 'cached'
         raise
+    return cache_foods(foods), 'USDA FoodData Central (SR Legacy)'
+
+
+def cache_foods(foods):
     found = []
     for food in foods:
         if not isinstance(food, dict) or not isinstance(food.get('foodNutrients'), list):
@@ -55,11 +62,28 @@ def search_foods(query):
         if nutrients['calories'] is None or not food.get('description') or not isinstance(food.get('fdcId'), int):
             continue
         execute('''INSERT INTO food_catalog (fdc_id, food_name, calories, protein_g, carbs_g, fat_g, fiber_g)
-            VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE food_id=food_id''',
+            VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE
+            food_name=VALUES(food_name),calories=VALUES(calories),protein_g=VALUES(protein_g),
+            carbs_g=VALUES(carbs_g),fat_g=VALUES(fat_g),fiber_g=VALUES(fiber_g),cached_at=UTC_TIMESTAMP(6)''',
             (food['fdcId'], food['description'][:150], *nutrients.values()))
         found.append(fetch_one('SELECT * FROM food_catalog WHERE fdc_id=%s', (food['fdcId'],)))
     get_db().commit()
-    return found, 'USDA FoodData Central (SR Legacy)'
+    return found
+
+
+def discover_foods(query):
+    """Retrieve food/brand evidence without assuming a label establishes allergen absence."""
+    foods = usda_search(query, 'Foundation,SR Legacy,Branded')
+    cached = cache_foods(foods)
+    raw_by_id = {food['fdcId']: food for food in foods if isinstance(food, dict) and isinstance(food.get('fdcId'), int)}
+    for food in cached:
+        raw = raw_by_id[food['fdc_id']]
+        observation = {key: raw.get(key) for key in ('fdcId', 'description', 'dataType', 'brandOwner', 'gtinUpc', 'ingredients', 'publishedDate')}
+        execute('''INSERT INTO almond_food_observations (food_id,observation) VALUES (%s,%s)
+            ON DUPLICATE KEY UPDATE observation=VALUES(observation),fetched_at=UTC_TIMESTAMP(6)''',
+            (food['food_id'], json.dumps(observation)))
+    get_db().commit()
+    return cached
 
 
 def calculate_food(data, values):

@@ -1,5 +1,7 @@
 .mysql/
 .env*
+!.env.almond.example
+work/
 .postman/
 .venv/
 __pycache__/

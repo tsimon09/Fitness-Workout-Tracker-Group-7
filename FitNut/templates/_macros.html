@@ -1,0 +1,8 @@
+{# Shared display helpers. num trims trailing zeros, so 150.00 reads as 150 and 1234.50 as 1,234.5. #}
+{% macro num(value) -%}
+  {{ '{:,.2f}'.format(value).rstrip('0').rstrip('.') }}
+{%- endmacro %}
+{# plain does the same without commas, for number inputs. #}
+{% macro plain(value) -%}
+  {% if value is not none %}{{ '{:.2f}'.format(value).rstrip('0').rstrip('.') }}{% endif %}
+{%- endmacro %}

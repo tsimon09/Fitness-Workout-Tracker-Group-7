@@ -1,3 +1,4 @@
+param([string]$Pattern='test*.py')
 # All test data lives in a newly created, temporary database.
 . (Join-Path $PSScriptRoot 'mysql-common.ps1')
 Start-FitNutMySql
@@ -17,7 +18,7 @@ try {
     $env:MYSQL_PASSWORD = $credential.GetNetworkCredential().Password
     Push-Location $FitNutRoot
     try {
-        & (Join-Path $FitNutRoot '.venv\Scripts\python.exe') -m unittest discover -s tests -v
+        & (Join-Path $FitNutRoot '.venv\Scripts\python.exe') -m unittest discover -s tests -p $Pattern -v
         if ($LASTEXITCODE -ne 0) { throw 'FitNut integration tests failed.' }
     } finally { Pop-Location }
 } finally {

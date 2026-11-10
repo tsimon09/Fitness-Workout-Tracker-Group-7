@@ -1,48 +1,94 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import plain %}
+{% set goal_icons = {'maintain': '<path d="M6 24h36M14 16l-8 8 8 8M34 16l8 8-8 8"/>', 'lose_weight': '<path d="M24 6v30M12 26l12 12 12-12"/>', 'gain_weight': '<path d="M24 42V12M12 22l12-12 12 12"/>', 'gain_muscle': '<path d="M6 24h36M12 14v20M36 14v20"/>', 'improve_fitness': '<path d="M4 26h9l5-13 8 24 6-16 3 5h9"/>'} %}
 {% block title %}Profile · FitNut{% endblock %}
 {% block content %}
 <section class="profile-panel">
-<h1>Your profile</h1>
-<p>Save your goals and dietary restrictions here. You can leave fields blank. AI plans aren't connected yet.</p>
+<div class="page-head"><div><h1>Your profile</h1></div></div>
 <form id="profile-form">
-  <fieldset><legend>About you</legend>
-    <div class="field-pair">
-      <label>Age<input name="age" type="number" min="1" max="120" step="1" value="{{ profile.age if profile.age is not none else '' }}"></label>
-      <label>Height (cm)<input name="height_cm" type="number" min="0.01" max="300" step="0.01" value="{{ profile.height_cm if profile.height_cm is not none else '' }}"></label>
+  <div class="profile-section">
+    <div class="profile-intro"><h2>About you</h2></div>
+    <fieldset class="profile-fields"><legend class="sr-only">About you</legend>
+      <div class="field-trio">
+        <label>Age
+          <input name="age" type="number" min="1" max="120" step="1"
+                 value="{{ profile.age if profile.age is not none else '' }}">
+        </label>
+        <div class="profile-measure"><span class="control-label" id="height-label">Height</span><div class="wheels" aria-labelledby="height-label">
+          <div class="wheel-wrap"><div class="wheel" id="height-feet" tabindex="0" role="spinbutton" aria-label="Height, feet"></div></div>
+          <div class="wheel-wrap"><div class="wheel" id="height-inches" tabindex="0" role="spinbutton" aria-label="Height, inches"></div></div>
+          </div><input name="height_cm" id="height-cm" type="hidden" value="{{ plain(profile.height_cm) }}"></div>
+        <div class="profile-measure"><label class="control-label" for="weight-lb">Weight in pounds</label><div class="stepper"><button type="button" data-step-weight="-1" aria-label="One pound less">−</button><input id="weight-lb" type="number" min="0.1" max="2202.62" step="any" inputmode="decimal" value=""><button type="button" data-step-weight="1" aria-label="One pound more">+</button></div><input name="weight_kg" id="weight-kg" type="hidden" value="{{ plain(profile.weight_kg) }}"><button class="text-button" type="button" id="clear-measures">Clear height and weight</button></div>
+      </div>
+      <fieldset class="choice-group"><legend>Your goal</legend><div class="choice-cards">{% for code, label in goals.items() %}<label class="choice-card"><input type="radio" name="fitness_goal" value="{{ code }}" {% if profile.fitness_goal == code %}checked{% endif %}><svg viewBox="0 0 48 48" aria-hidden="true">{{ goal_icons[code]|safe }}</svg><span>{{ label }}</span></label>{% endfor %}<label class="choice-card"><input type="radio" name="fitness_goal" value="" {% if not profile.fitness_goal %}checked{% endif %}><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke-dasharray="5 6"/></svg><span>Not set</span></label></div></fieldset>
+      <fieldset class="choice-group"><legend>Experience</legend><div class="segmented"><label><input type="radio" name="fitness_level" value="" {% if not profile.fitness_level %}checked{% endif %}><span>Not set</span></label>{% for code, label in levels.items() %}<label><input type="radio" name="fitness_level" value="{{ code }}" {% if profile.fitness_level == code %}checked{% endif %}><span>{{ label }}</span></label>{% endfor %}</div></fieldset>
+    </fieldset>
+  </div>
+
+  <div class="profile-section">
+    <div class="profile-intro"><h2>Targets</h2></div>
+    <fieldset class="profile-fields"><legend class="sr-only">Targets</legend>
+      <div class="field-pair">
+        {% for name, label, val, minval, maxval, stepval, unit in [('daily_calorie_target','Daily calorie target',profile.daily_calorie_target,500,10000,50,'kcal/day'),('weekly_activity_minutes','Weekly activity target',profile.weekly_activity_minutes,10,1000,10,'minutes/week')] %}
+        <div class="target-control"><label for="{{ name }}">{{ label }} <span class="target-unit">({{ unit }})</span></label><div class="target-row"><input class="target-range" type="range" min="{{ minval }}" max="{{ maxval }}" step="{{ stepval }}" aria-label="{{ label }} range" {% if val is none %}disabled{% else %}value="{{ plain(val) }}"{% endif %}><input id="{{ name }}" class="target-number" name="{{ name }}" type="number" min="0.01" max="99999999.99" step="any" value="{{ plain(val) }}" placeholder="Optional" inputmode="decimal"><button class="text-button target-clear" type="button" aria-label="Clear {{ label }}">No target</button></div></div>
+        {% endfor %}
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="profile-section allergies">
+    <div class="profile-intro">
+      <h2>Food allergies</h2>
+      <p class="allergy-warning">FitNut can't guarantee a food or recipe is free of an allergen. Always check the label.</p>
     </div>
-    <label>Weight (kg)<input name="weight_kg" type="number" min="0.01" max="999.99" step="0.01" value="{{ profile.weight_kg if profile.weight_kg is not none else '' }}"></label>
-    <div class="field-pair">
-      <label>Fitness goal<select name="fitness_goal"><option value="">Not provided</option>{% for code, label in goals.items() %}<option value="{{ code }}" {% if profile.fitness_goal == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
-      <label>Experience<select name="fitness_level"><option value="">Not provided</option>{% for code, label in levels.items() %}<option value="{{ code }}" {% if profile.fitness_level == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+    <div class="profile-fields">
+      <label>Allergy information
+        <select name="allergy_status" id="allergy-status">
+          {% if profile.allergy_status == 'not_provided' %}<option value="not_provided" selected>Not provided</option>{% endif %}
+          <option value="none_reported" {% if profile.allergy_status == 'none_reported' %}selected{% endif %}>None reported</option>
+          <option value="listed" {% if profile.allergy_status == 'listed' %}selected{% endif %}>I have allergies to list</option>
+        </select>
+      </label>
+      <fieldset id="allergy-details" {% if profile.allergy_status != 'listed' %}disabled{% endif %}>
+        <legend>Allergies to avoid</legend>
+        <div class="allergen-grid">
+          {% for code, label in allergens.items() %}
+          <label class="checkbox-row"><input type="checkbox" name="allergens" value="{{ code }}" {% if code in profile.allergens %}checked{% endif %}>{{ label }}</label>
+          {% endfor %}
+        </div>
+        <label for="profile-other-allergies">Other allergies</label>
+        <textarea id="profile-other-allergies" name="other_allergies" rows="2" maxlength="10100" placeholder="One per line">{{ profile.other_allergies|join('\n') }}</textarea>
+      </fieldset>
     </div>
-  </fieldset>
-  <fieldset><legend>Targets</legend>
-    <div class="field-pair">
-      <label>Daily calorie target<input name="daily_calorie_target" type="number" min="0.01" max="99999999.99" step="0.01" value="{{ profile.daily_calorie_target if profile.daily_calorie_target is not none else '' }}"></label>
-      <label>Weekly activity target (minutes)<input name="weekly_activity_minutes" type="number" min="0.01" max="99999999.99" step="0.01" value="{{ profile.weekly_activity_minutes if profile.weekly_activity_minutes is not none else '' }}"></label>
+  </div>
+
+  <div class="profile-section">
+    <div class="profile-intro"><h2>Intolerances and preferences</h2><p>One per line.</p></div>
+    <fieldset class="profile-fields"><legend class="sr-only">Intolerances and preferences</legend>
+      <label>Dietary pattern
+        <select name="dietary_pattern">
+          <option value="">Not provided</option>
+          {% for code, label in diets.items() %}
+          <option value="{{ code }}" {% if profile.dietary_pattern == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <div class="field-pair">
+        <div><label for="profile-intolerances">Intolerances</label>
+        <textarea id="profile-intolerances" name="intolerances" rows="3" maxlength="10100" placeholder="One per line, e.g. lactose">{{ profile.intolerances|join('\n') }}</textarea></div>
+        <div><label for="profile-preferences">Food preferences</label>
+        <textarea id="profile-preferences" name="preferences" rows="3" maxlength="10100" placeholder="One per line, e.g. no spicy food">{{ profile.preferences|join('\n') }}</textarea></div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="profile-save">
+    <p class="form-message" role="alert" hidden></p>
+    <div class="actions">
+      <button class="button" type="submit" disabled>Save profile</button>
+      <button type="reset">Reset changes</button>
     </div>
-    <p class="hint">These are the same targets used on your food and activity pages.</p>
-  </fieldset>
-  <h2>Food allergies</h2>
-  <label>Allergy information<select name="allergy_status" id="allergy-status">
-    <option value="not_provided" {% if profile.allergy_status == 'not_provided' %}selected{% endif %}>Not provided</option>
-    <option value="none_reported" {% if profile.allergy_status == 'none_reported' %}selected{% endif %}>None reported</option>
-    <option value="listed" {% if profile.allergy_status == 'listed' %}selected{% endif %}>I have allergies to list</option>
-  </select></label>
-  <fieldset id="allergy-details" {% if profile.allergy_status != 'listed' %}disabled{% endif %}><legend>Allergies to avoid</legend>
-    <div class="allergen-grid">{% for code, label in allergens.items() %}
-      <label class="checkbox-row"><input type="checkbox" name="allergens" value="{{ code }}" {% if code in profile.allergens %}checked{% endif %}>{{ label }}</label>
-    {% endfor %}</div>
-    <label for="profile-other-allergies">Other allergies</label><textarea id="profile-other-allergies" name="other_allergies" rows="3" maxlength="2000" placeholder="One per line">{{ profile.other_allergies|join('\n') }}</textarea>
-  </fieldset>
-  <fieldset><legend>Intolerances and preferences</legend>
-    <label for="profile-intolerances">Intolerances</label><textarea id="profile-intolerances" name="intolerances" rows="3" maxlength="2000" placeholder="One per line, e.g. lactose">{{ profile.intolerances|join('\n') }}</textarea>
-    <label>Dietary pattern<select name="dietary_pattern"><option value="">Not provided</option>{% for code, label in diets.items() %}<option value="{{ code }}" {% if profile.dietary_pattern == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
-    <label for="profile-preferences">Food preferences</label><textarea id="profile-preferences" name="preferences" rows="3" maxlength="2000" placeholder="One per line, e.g. no spicy food">{{ profile.preferences|join('\n') }}</textarea>
-    <p class="hint">Keep allergies in the allergy section. These lists accept up to 20 items each.</p>
-  </fieldset>
-  <p class="form-message" role="alert" hidden></p>
-  <div class="actions"><button type="submit">Save profile</button><button type="reset">Reset changes</button></div>
+  </div>
 </form>
 </section>
 <script src="{{ url_for('static', filename='profile.js') }}" defer></script>

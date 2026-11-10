@@ -1,0 +1,2605 @@
+{
+  "references": {
+    "allergens": {
+      "title": "Food Allergies",
+      "source_url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "scope": "FDA identifies almonds among tree nuts and tree nuts among major food allergens."
+    },
+    "nutrition": {
+      "title": "FoodData Central individual records",
+      "scope": "Records support food identity and nutrient values; USDA nutrient records do not establish allergen absence."
+    }
+  },
+  "catalog": {
+    "101": {
+      "food_id": 101,
+      "food_name": "Almonds, raw",
+      "ingredients": [
+        "almonds"
+      ],
+      "allergens": [
+        "tree nut"
+      ],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-2346393",
+      "source_url": "https://fdc.nal.usda.gov/food-details/2346393/nutrients",
+      "calories": 583.6,
+      "protein_g": 21.45,
+      "carbs_g": 20.035,
+      "fat_g": 51.09,
+      "fiber_g": 12.5,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "102": {
+      "food_id": 102,
+      "food_name": "Apples, raw, with skin",
+      "ingredients": [
+        "apple"
+      ],
+      "allergens": [],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-171688",
+      "source_url": "https://fdc.nal.usda.gov/food-details/171688/nutrients",
+      "calories": 52,
+      "protein_g": 0.26,
+      "carbs_g": 13.81,
+      "fat_g": 0.17,
+      "fiber_g": 2.4,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "103": {
+      "food_id": 103,
+      "food_name": "Oats, whole grain, rolled, old fashioned",
+      "ingredients": [
+        "oats"
+      ],
+      "allergens": [],
+      "evidence_complete": true,
+      "evidence_id": "usda-fdc-2346396",
+      "source_url": "https://fdc.nal.usda.gov/food-details/2346396/nutrients",
+      "calories": 378.87,
+      "protein_g": 13.5,
+      "carbs_g": 68.66,
+      "fat_g": 5.89,
+      "fiber_g": null,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    },
+    "104": {
+      "food_id": 104,
+      "food_name": "Almond oat beverage, unspecified brand",
+      "ingredients": [
+        "almond",
+        "water",
+        "oats"
+      ],
+      "allergens": [
+        "tree nut"
+      ],
+      "evidence_complete": false,
+      "evidence_id": "incomplete-compound-label-104",
+      "source_url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "calories": 23,
+      "protein_g": 0.6,
+      "carbs_g": 3.2,
+      "fat_g": 1.1,
+      "fiber_g": 0.3,
+      "dietary_tags": [
+        "vegan",
+        "vegetarian",
+        "pescatarian"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "DEV-01",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete USDA food identity and no restriction conflict."
+    },
+    {
+      "case_id": "DEV-02",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond, identified by FDA as a tree nut."
+    },
+    {
+      "case_id": "DEV-03",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "almond"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Specific almond allergy conflicts with almond ingredient."
+    },
+    {
+      "case_id": "DEV-04",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "peanut"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Peanut and tree nut categories must not be conflated."
+    },
+    {
+      "case_id": "DEV-05",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unresolved allergy status blocks a checked recommendation."
+    },
+    {
+      "case_id": "DEV-06",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "bogus",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unsupported allergy state fails closed."
+    },
+    {
+      "case_id": "DEV-07",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almonds"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "No phrase creates a custom hard restriction."
+    },
+    {
+      "case_id": "DEV-08",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "Avoid almond"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Avoid phrase creates a custom hard restriction."
+    },
+    {
+      "case_id": "DEV-09",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "Exclude tree nuts"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut custom restriction matches almond."
+    },
+    {
+      "case_id": "DEV-10",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete apple evidence has no matching restriction."
+    },
+    {
+      "case_id": "DEV-11",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Oats, whole grain, rolled, old fashioned",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 40
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete oats evidence is usable; fiber remains unknown."
+    },
+    {
+      "case_id": "DEV-12",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "milk"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Milk allergy does not match evidenced apple."
+    },
+    {
+      "case_id": "DEV-13",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "vegan"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Catalog explicitly tags raw almonds vegan."
+    },
+    {
+      "case_id": "DEV-14",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "vegetarian"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 150
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Catalog tags plain apple vegetarian."
+    },
+    {
+      "case_id": "DEV-15",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "vegan"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almond oat beverage, unspecified brand",
+        "foods": [
+          {
+            "food_id": 104,
+            "grams": 200
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "incomplete-compound-label-104"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Compound beverage evidence is explicitly incomplete."
+    },
+    {
+      "case_id": "DEV-16",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 999,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "unknown"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Foreign food ID is absent from the catalog."
+    },
+    {
+      "case_id": "DEV-17",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "wrong-evidence-id"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Recipe evidence ID does not match catalog evidence."
+    },
+    {
+      "case_id": "DEV-18",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 20
+          },
+          {
+            "food_id": 101,
+            "grams": 8
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Duplicate food IDs are invalid."
+    },
+    {
+      "case_id": "DEV-19",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 2001
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Quantity exceeds the 2000 g limit."
+    },
+    {
+      "case_id": "DEV-20",
+      "split": "dev",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 0
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Zero quantity is invalid."
+    },
+    {
+      "case_id": "HOLD-01",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 26
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond."
+    },
+    {
+      "case_id": "HOLD-02",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 27
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Apple is not evidenced as a tree nut."
+    },
+    {
+      "case_id": "HOLD-03",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond."
+    },
+    {
+      "case_id": "HOLD-04",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 29
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Apple is not evidenced as a tree nut."
+    },
+    {
+      "case_id": "HOLD-05",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond."
+    },
+    {
+      "case_id": "HOLD-06",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 31
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Apple is not evidenced as a tree nut."
+    },
+    {
+      "case_id": "HOLD-07",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 32
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond."
+    },
+    {
+      "case_id": "HOLD-08",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 33
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Apple is not evidenced as a tree nut."
+    },
+    {
+      "case_id": "HOLD-09",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 34
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Tree nut allergy conflicts with almond."
+    },
+    {
+      "case_id": "HOLD-10",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 35
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Apple is not evidenced as a tree nut."
+    },
+    {
+      "case_id": "HOLD-11",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almond ingredients"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 21
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard restriction phrase matches almond."
+    },
+    {
+      "case_id": "HOLD-12",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "avoid almonds"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 22
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard restriction phrase matches almond."
+    },
+    {
+      "case_id": "HOLD-13",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "Exclude almond"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 23
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard restriction phrase matches almond."
+    },
+    {
+      "case_id": "HOLD-14",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No tree nuts"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 24
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard restriction phrase matches almond."
+    },
+    {
+      "case_id": "HOLD-15",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "less sugar"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 25
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Phrase is non-hard or does not match this food."
+    },
+    {
+      "case_id": "HOLD-16",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "no shellfish"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 26
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Phrase is non-hard or does not match this food."
+    },
+    {
+      "case_id": "HOLD-17",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "Avoid apples"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 27
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard avoid/exclude phrase matches an evidenced ingredient."
+    },
+    {
+      "case_id": "HOLD-18",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "exclude oats"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Oats, whole grain, rolled, old fashioned",
+        "foods": [
+          {
+            "food_id": 103,
+            "grams": 28
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346396"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Hard avoid/exclude phrase matches an evidenced ingredient."
+    },
+    {
+      "case_id": "HOLD-19",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No peanut"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 29
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Phrase is non-hard or does not match this food."
+    },
+    {
+      "case_id": "HOLD-20",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "no dairy"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unsupported custom dairy restriction has no explicit coverage evidence."
+    },
+    {
+      "case_id": "HOLD-21",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "missing_evidence"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-22",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "wrong_food_name"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-23",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "wrong_ingredients"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-24",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "missing_allergen"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-25",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "foreign_evidence"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-26",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "negative_calories"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-27",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "nan_macro"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-28",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "boolean_food_id"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-29",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "boolean_grams"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-30",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 30
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ],
+        "fixture_mutation": "empty_title"
+      },
+      "expected": "reject",
+      "rationale": "Evidence identity, completeness, source linkage, or nutrient structure is invalid."
+    },
+    {
+      "case_id": "HOLD-31",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "unknown",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 46
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-32",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "almond"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 47
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared almond intolerance/custom allergy still blocks that ingredient, while remaining a distinct profile category."
+    },
+    {
+      "case_id": "HOLD-33",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [
+          "almond"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 48
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-34",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 49
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-35",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "unknown",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 50
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-36",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [
+          "almond"
+        ],
+        "intolerances": [
+          "almond"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 51
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared almond intolerance/custom allergy still blocks that ingredient, while remaining a distinct profile category."
+    },
+    {
+      "case_id": "HOLD-37",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "listed",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 52
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-38",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "not_provided",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 53
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-39",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "unknown",
+        "allergens": [
+          "tree_nuts"
+        ],
+        "other_allergies": [
+          "almond"
+        ],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 54
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unknown allergy state or listed/custom allergy blocks almond; intolerance remains distinct."
+    },
+    {
+      "case_id": "HOLD-40",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [
+          "almond"
+        ],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 55
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "The declared almond intolerance/custom allergy still blocks that ingredient, while remaining a distinct profile category."
+    },
+    {
+      "case_id": "HOLD-41",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": -0.1
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-42",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 2000.01
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-43",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": "NaN"
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-44",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": "Infinity"
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-45",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": true
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-46",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": "28"
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-47",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": null
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-48",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": "-Infinity"
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-49",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": []
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-50",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": {}
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Grams must be finite numeric >0 and <=2000."
+    },
+    {
+      "case_id": "HOLD-51",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almonds"
+        ],
+        "dietary_pattern": "vegan"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 18
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Explicit no-almond restriction blocks the almond item."
+    },
+    {
+      "case_id": "HOLD-52",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "vegetarian"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 19
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete item and declared dietary tag are compatible."
+    },
+    {
+      "case_id": "HOLD-53",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "pescatarian"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 20
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete item and declared dietary tag are compatible."
+    },
+    {
+      "case_id": "HOLD-54",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almonds"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 21
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Explicit no-almond restriction blocks the almond item."
+    },
+    {
+      "case_id": "HOLD-55",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "keto"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 22
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Unsupported dietary pattern cannot be validated."
+    },
+    {
+      "case_id": "HOLD-56",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 23
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "No preference is a supported neutral dietary pattern."
+    },
+    {
+      "case_id": "HOLD-57",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almonds"
+        ],
+        "dietary_pattern": "vegan"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 24
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Explicit no-almond restriction blocks the almond item."
+    },
+    {
+      "case_id": "HOLD-58",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "vegetarian"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 25
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete item and declared dietary tag are compatible."
+    },
+    {
+      "case_id": "HOLD-59",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [],
+        "dietary_pattern": "pescatarian"
+      },
+      "recipe": {
+        "title": "Fixture meal with Almonds, raw",
+        "foods": [
+          {
+            "food_id": 101,
+            "grams": 26
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-2346393"
+        ]
+      },
+      "expected": "accept",
+      "rationale": "Complete item and declared dietary tag are compatible."
+    },
+    {
+      "case_id": "HOLD-60",
+      "split": "heldout",
+      "profile": {
+        "allergy_status": "none_reported",
+        "allergens": [],
+        "other_allergies": [],
+        "intolerances": [],
+        "preferences": [
+          "No almonds"
+        ],
+        "dietary_pattern": "no_preference"
+      },
+      "recipe": {
+        "title": "Fixture meal with Apples, raw, with skin",
+        "foods": [
+          {
+            "food_id": 102,
+            "grams": 27
+          }
+        ],
+        "instructions": [
+          "Serve as listed."
+        ],
+        "substitutions": [],
+        "evidence_ids": [
+          "usda-fdc-171688"
+        ]
+      },
+      "expected": "reject",
+      "rationale": "Explicit no-almond restriction blocks the almond item."
+    }
+  ]
+}

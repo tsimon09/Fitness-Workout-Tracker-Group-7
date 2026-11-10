@@ -1,0 +1,1921 @@
+[
+  {
+    "episode_id": "uncertainty_u01",
+    "category": "uncertainty",
+    "split": "dev",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "quick black-bean bowl",
+      "time_limit_minutes": 20
+    },
+    "favorites": [],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "Make a black-bean bowl with my usual bottled Green Garden sauce; I need that sauce in it, but I don't have the ingredient label.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes black-bean bowls with vegetables.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually needs dinner ready in about 20 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": false,
+          "must_include_names": [
+            "black beans",
+            "Green Garden sauce"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": "The required branded sauce has no ingredient label, so its ingredients cannot be checked."
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims.",
+        "uncertain_items": [
+          {
+            "name": "Green Garden sauce",
+            "problem": "Branded sauce ingredients are unknown because the label is unavailable.",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "turn_id": "t2",
+        "request": "I cannot check the label, so leave that sauce out. Use black beans, broccoli, and cooked rice for the bowl instead.",
+        "new_meal": false,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes black-bean bowls with vegetables.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually needs dinner ready in about 20 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "black beans",
+            "broccoli",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "uncertainty_u02",
+    "category": "uncertainty",
+    "split": "heldout",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "quick dinner",
+      "time_limit_minutes": 25
+    },
+    "favorites": [],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "Can you make a tofu and broccoli dinner? I may need to avoid soy for now, but I am unsure whether that restriction is still current.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers uncomplicated weeknight meals.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 25 minutes to cook dinner.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": false,
+          "must_include_names": [
+            "tofu",
+            "broccoli"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": "Whether soy is currently restricted is unclear; ask whether to treat it as mandatory before using tofu."
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims.",
+        "uncertain_items": [
+          {
+            "name": "soy",
+            "problem": "User is uncertain whether the current soy restriction still applies.",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "turn_id": "t2",
+        "request": "Please avoid soy for this meal while I confirm. Use chicken and broccoli instead of tofu.",
+        "new_meal": false,
+        "events": [
+          {
+            "type": "temporary",
+            "term": "soy"
+          }
+        ],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers uncomplicated weeknight meals.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 25 minutes to cook dinner.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "chicken",
+            "broccoli"
+          ],
+          "must_exclude_names": [
+            "soy"
+          ],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "uncertainty_u03",
+    "category": "uncertainty",
+    "split": "dev",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [
+        "vegetarian"
+      ],
+      "dietary_pattern": "vegetarian"
+    },
+    "preferences": {
+      "meal_style": "warm lentil meal",
+      "time_limit_minutes": 15
+    },
+    "favorites": [],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I have lentils and broccoli. Suggest a warm meal ready in 15 minutes, but I cannot tell whether these lentils are cooked or dry.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers vegetarian meals with familiar ingredients.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Needs this meal ready within about 15 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": false,
+          "must_include_names": [
+            "lentils",
+            "broccoli"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": "Cooked versus dry lentils changes whether the requested 15-minute timing is feasible; ask their preparation state."
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims.",
+        "uncertain_items": [
+          {
+            "name": "lentils",
+            "problem": "Cooked or dry preparation state is unknown and affects the requested timing.",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "turn_id": "t2",
+        "request": "They are already cooked. A quick warm bowl is fine.",
+        "new_meal": false,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers vegetarian meals with familiar ingredients.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Needs this meal ready within about 15 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "cooked lentils",
+            "broccoli"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "uncertainty_u04",
+    "category": "uncertainty",
+    "split": "heldout",
+    "initial_profile": {
+      "allergy_status": "listed",
+      "allergens": [
+        "sesame"
+      ],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "simple snack",
+      "time_limit_minutes": 10
+    },
+    "favorites": [],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I have a sesame allergy. This package says 'sesame-free tahini' on the front, but its ingredient panel lists sesame seeds. Can you use it for an apple snack?",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes snacks that take only a few minutes to prepare.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers fruit-based snacks.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": false,
+          "must_include_names": [
+            "apple",
+            "sesame-free tahini"
+          ],
+          "must_exclude_names": [
+            "sesame"
+          ],
+          "clarification_reason": "The package claim conflicts with its ingredient panel and the listed sesame allergy; do not recommend this product."
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims.",
+        "uncertain_items": [
+          {
+            "name": "sesame-free tahini",
+            "problem": "Front label says sesame-free while ingredient panel lists sesame seeds.",
+            "mandatory": true
+          }
+        ]
+      },
+      {
+        "turn_id": "t2",
+        "request": "Follow the ingredient panel and leave it out. Just suggest apple with oats and water.",
+        "new_meal": false,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes snacks that take only a few minutes to prepare.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers fruit-based snacks.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "apple",
+            "oats",
+            "water"
+          ],
+          "must_exclude_names": [
+            "sesame"
+          ],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "variety_v01",
+    "category": "variety",
+    "split": "dev",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "mix of warm and cold meals",
+      "time_limit_minutes": 30
+    },
+    "favorites": [
+      {
+        "title": "apple-oat breakfast bowl",
+        "ingredient_names": [
+          "apple",
+          "oats",
+          "water"
+        ]
+      }
+    ],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I am exploring new meal ideas. Make a warm apple-oat porridge with water for breakfast; keep it simple and ready in 10 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes warm breakfasts on busy mornings.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers breakfast ready in about 10 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "apple",
+            "oats",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t2",
+        "request": "I am exploring new meal ideas. Make a chicken, broccoli, and cooked-rice skillet for dinner, ready in 25 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes one-pan dinners with a vegetable.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 25 minutes for dinner.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "chicken",
+            "broccoli",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t3",
+        "request": "I am exploring new meal ideas. Suggest a cold black-bean, spinach, and cooked-rice bowl for lunch; use cooked ingredients.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers cold lunch bowls on warm days.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Likes no-cook assembly for weekday lunch.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "black beans",
+            "spinach",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t4",
+        "request": "For a new dinner, make a warm lentil, carrot, and spinach soup with water; also recall my favorite apple-oat breakfast bowl as an optional side idea.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Enjoys warm lentil soup for a filling dinner.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers a simple optional fruit-based side.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Favorite saved separately: apple-oat breakfast bowl (apple, oats, water).",
+            "relevant": true,
+            "tags": [
+              "favorite",
+              "memory"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "lentils",
+            "carrot",
+            "spinach",
+            "water",
+            "apple",
+            "oats"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "variety_v02",
+    "category": "variety",
+    "split": "heldout",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [
+        "vegetarian"
+      ],
+      "dietary_pattern": "vegetarian"
+    },
+    "preferences": {
+      "meal_style": "vegetarian meals with varied textures",
+      "time_limit_minutes": 30
+    },
+    "favorites": [
+      {
+        "title": "black-bean rice bowl",
+        "ingredient_names": [
+          "black beans",
+          "cooked rice",
+          "spinach"
+        ]
+      }
+    ],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I am exploring new meal ideas. Make a tofu and broccoli skillet for a quick dinner, about 20 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Enjoys vegetarian skillet meals.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 20 minutes for dinner.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "tofu",
+            "broccoli"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t2",
+        "request": "I am exploring new meal ideas. Make a warm lentil and carrot soup with water for lunch, ready in 30 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes warm soups for lunch.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Can spend up to 30 minutes cooking.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "lentils",
+            "carrot",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t3",
+        "request": "I am exploring new meal ideas. Make a cold black-bean, spinach, and cooked-rice bowl for meal prep.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers make-ahead lunches that can be eaten cold.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Likes beans with leafy vegetables.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "black beans",
+            "spinach",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t4",
+        "request": "I am exploring new meal ideas. Prepare savory oats with spinach and water for a warm breakfast, ready in 15 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes savory breakfasts more than sweet ones.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Needs breakfast ready in about 15 minutes.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "oats",
+            "spinach",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "variety_v03",
+    "category": "variety",
+    "split": "dev",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "practical family-style meals",
+      "time_limit_minutes": 35
+    },
+    "favorites": [
+      {
+        "title": "chicken and broccoli rice skillet",
+        "ingredient_names": [
+          "chicken",
+          "broccoli",
+          "cooked rice"
+        ]
+      }
+    ],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I am exploring new meal ideas. Make a chicken, carrot, and cooked-rice soup with water for dinner, ready in 30 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers soup when dinner should feel warm and filling.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 30 minutes to cook.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "chicken",
+            "carrot",
+            "cooked rice",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t2",
+        "request": "I am exploring new meal ideas. Make tofu with broccoli and cooked rice in a quick skillet for lunch.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes a warm lunch with tofu.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers simple skillet cooking.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "tofu",
+            "broccoli",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t3",
+        "request": "I am exploring new meal ideas. Assemble a cold apple and oats bowl with water for a portable breakfast.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes portable breakfasts that do not need cooking.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers fruit with breakfast.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "apple",
+            "oats",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t4",
+        "request": "I am exploring new meal ideas. Make black beans, spinach, and carrot into a warm one-pan dinner, ready in 25 minutes.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers hearty bean-based dinners.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Usually has about 25 minutes to cook.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "black beans",
+            "spinach",
+            "carrot"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  },
+  {
+    "episode_id": "variety_v04",
+    "category": "variety",
+    "split": "heldout",
+    "initial_profile": {
+      "allergy_status": "none_reported",
+      "allergens": [],
+      "other_allergies": [],
+      "intolerances": [],
+      "preferences": [],
+      "dietary_pattern": "no_preference"
+    },
+    "preferences": {
+      "meal_style": "simple meals, mixed cooking methods",
+      "time_limit_minutes": 30
+    },
+    "favorites": [
+      {
+        "title": "lentil-spinach soup",
+        "ingredient_names": [
+          "lentils",
+          "spinach",
+          "carrot",
+          "water"
+        ]
+      }
+    ],
+    "turns": [
+      {
+        "turn_id": "t1",
+        "request": "I am exploring new meal ideas. Make a black-bean and carrot soup with water for a warm lunch.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes warm lunches that can be reheated.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers a straightforward soup.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "black beans",
+            "carrot",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t2",
+        "request": "I am exploring new meal ideas. Make a tofu, spinach, and cooked-rice skillet for a quick dinner.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Enjoys tofu as a dinner protein.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Likes skillet meals with greens.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "tofu",
+            "spinach",
+            "cooked rice"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t3",
+        "request": "I am exploring new meal ideas. Assemble apple with oats and water as a quick no-cook breakfast bowl.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Prefers a no-cook breakfast on rushed mornings.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Likes fruit alongside oats.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Usually drinks tea in the afternoon.",
+            "relevant": false,
+            "tags": [
+              "routine",
+              "unrelated"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "apple",
+            "oats",
+            "water"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      },
+      {
+        "turn_id": "t4",
+        "request": "I am exploring new meal ideas. Make a cooked lentil, broccoli, and carrot bowl for dinner, using a quick stovetop method.",
+        "new_meal": true,
+        "events": [],
+        "optional_context": [
+          {
+            "id": "note-1",
+            "text": "Likes lentils for a hearty dinner.",
+            "relevant": true,
+            "tags": [
+              "current-preference"
+            ]
+          },
+          {
+            "id": "note-2",
+            "text": "Prefers a quick stovetop recipe.",
+            "relevant": true,
+            "tags": [
+              "request-fit"
+            ]
+          },
+          {
+            "id": "note-3",
+            "text": "Expired note: planned to try a specialty sauce last month; that plan has passed.",
+            "relevant": false,
+            "tags": [
+              "expired"
+            ]
+          },
+          {
+            "id": "note-4",
+            "text": "Old seasonal meal idea; user has not said it is still a favorite.",
+            "relevant": false,
+            "tags": [
+              "stale",
+              "favorite"
+            ]
+          },
+          {
+            "id": "note-5",
+            "text": "Has a blender but uses it only for smoothies.",
+            "relevant": false,
+            "tags": [
+              "equipment",
+              "unrelated"
+            ]
+          },
+          {
+            "id": "note-6",
+            "text": "Favorite saved separately: lentil-spinach soup (lentils, spinach, carrot, water).",
+            "relevant": false,
+            "tags": [
+              "favorite",
+              "memory"
+            ]
+          }
+        ],
+        "expect": {
+          "answerable": true,
+          "must_include_names": [
+            "cooked lentils",
+            "broccoli",
+            "carrot"
+          ],
+          "must_exclude_names": [],
+          "clarification_reason": null
+        },
+        "reference_notes": "Use reviewed catalog foods and give practical instructions; avoid unsupported nutrition, allergy, or cross-contact claims."
+      }
+    ]
+  }
+]

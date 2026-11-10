@@ -14,7 +14,7 @@ load_dotenv(PROJECT / ".env.local")
 
 def table_statements():
     # The hosting provider chooses the database name, so skip CREATE DATABASE/USE.
-    for filename in ("schema.sql", "other-tables.sql"):
+    for filename in ("schema.sql", "other-tables.sql", "almond-tables.sql"):
         sql = (PROJECT / "database" / filename).read_text(encoding="utf-8")
         sql = "\n".join(line for line in sql.splitlines() if not line.lstrip().startswith("--"))
         for statement in sql.split(";"):
@@ -78,10 +78,14 @@ def apply_migrations(cursor):
             if not match:
                 raise ValueError('Unsupported migration statement in ' + path.name)
             table, operation, column = match.groups()
-            cursor.execute('''SELECT is_nullable FROM information_schema.columns
+            cursor.execute('''SELECT is_nullable, column_type FROM information_schema.columns
                 WHERE table_schema=DATABASE() AND table_name=%s AND column_name=%s''', (table, column))
             existing = cursor.fetchone()
-            if (operation == 'ADD' and not existing) or (operation == 'MODIFY' and existing and existing[0] == 'NO'):
+            expand_goal = (operation == 'MODIFY' and table == 'user_profiles' and column == 'fitness_goal'
+                           and existing and "'gain_weight'" not in existing[1])
+            relax_weight = (operation == 'MODIFY' and table == 'user_profiles' and column == 'weight_kg'
+                            and existing and existing[0] == 'NO')
+            if (operation == 'ADD' and not existing) or expand_goal or relax_weight:
                 cursor.execute(statement)
 
 

@@ -110,7 +110,7 @@ class ProfileTests(unittest.TestCase):
                         {'fitness_level': []}, {'dietary_pattern': 'random'},
                         {'allergy_status': 'unknown'}, {'allergens': 'milk'}, {'allergens': [True]},
                         {'allergens': ['unknown']}, {'preferences': ['']}, {'intolerances': None},
-                        {'preferences': ['x' * 101]}, {'other_allergies': ['x'] * 21}):
+                        {'preferences': ['x' * 101]}, {'other_allergies': ['x'] * 101}):
             with self.subTest(changes=changes):
                 response = self.save(**changes)
                 self.assertEqual(response.status_code, 400, response.json)

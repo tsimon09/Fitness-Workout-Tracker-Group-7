@@ -19,7 +19,7 @@ Activity logging estimates calories for walking, running, cycling, and swimming 
 
 The Profile page saves weight, targets, allergies, intolerances, and food preferences.
 
-AI plans haven't been added yet.
+Ask Almond is available on Overview, Food, and Activity. Its chat, memory, recipe checks, and gateway integration are implemented; generation starts disabled until model evaluation passes. See [Almond setup and verification](ALMOND.md).
 
 ## Database
 

@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}FitNut{% endblock %}
+{% block page_scripts %}{% include '_nut_scripts.html' %}{% endblock %}
 {% block content %}
-<h1>FitNut</h1>
-<p>Record your food, activity, and sleep.</p>
-<p><a href="/register">Create an account</a> or <a href="/login">log in</a> to get started.</p>
+<div class="home-layout">
+  <div class="home-intro">
+    <h1>Your whole day, in one jar.</h1>
+    <p>Log food, movement and sleep. Watch it all pile up.</p>
+    <div class="actions"><a class="button" href="/register">Create an account</a><a class="text-button" href="/login">Log in</a></div>
+  </div>
+  <div class="home-almond">
+    <canvas id="almond-canvas" role="img" aria-label="Almond, FitNut's companion, a 3D almond with eyes that follow your pointer, circled by small nuts. Drag to spin."></canvas>
+    <p class="hint" id="almond-hint">Meet Almond. Drag to spin, click to say hi.</p>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='home.js') }}" defer></script>
 {% endblock %}

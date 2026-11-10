@@ -1,0 +1,31 @@
+.almond-onboarding {
+  margin: 1.25rem 0;
+  padding: 1.25rem;
+  border: 2px solid #a76b20;
+  border-radius: 0.75rem;
+  background: #fff8e9;
+  color: #352712;
+}
+.almond-onboarding h3 { margin-top: 0; }
+.almond-ack { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1rem 0; font-weight: 600; }
+.almond-ack input { flex: 0 0 auto; margin-top: 0.25rem; }
+#almond-diet-dialog {
+  width: min(42rem, calc(100vw - 2rem));
+  max-height: min(85vh, 52rem);
+  overflow: auto;
+  border: 1px solid #aaa;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+#almond-diet-dialog::backdrop { background: rgb(0 0 0 / 55%); }
+#almond-diet-form { display: grid; gap: 0.8rem; }
+#almond-diet-form h3, #almond-diet-form p { margin: 0; }
+#almond-diet-form label { display: grid; gap: 0.35rem; }
+#almond-diet-form fieldset { border: 1px solid #bbb; border-radius: 0.5rem; padding: 0.75rem; }
+.almond-allergen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0.35rem; margin-bottom: 0.75rem; }
+.almond-allergen-grid label { display: flex !important; align-items: center; gap: 0.45rem !important; }
+#almond-diet-form :focus-visible, #almond-onboarding :focus-visible { outline: 3px solid #315f9a; outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .almond-onboarding { animation: almond-enter 180ms ease-out; }
+  @keyframes almond-enter { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: translateY(0); } }
+}
