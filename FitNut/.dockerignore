@@ -1,0 +1,10 @@
+.git
+.env*
+.mysql
+.venv
+.postman
+__pycache__
+**/__pycache__
+*.pyc
+tests
+screenshots

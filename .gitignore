@@ -1,0 +1,22 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Local MySQL database
+.mysql/
+**/.mysql/
+
+# Python generated files
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local tools
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db

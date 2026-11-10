@@ -1,0 +1,254 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Exercise Library · FitNut
+{% endblock %}
+
+{% block content %}
+
+<section class="exercise-header">
+  <p class="eyebrow">FITNUT EXERCISE LIBRARY</p>
+
+  <h1>Find your next exercise</h1>
+
+  <p class="muted">
+    Explore exercises, learn the correct movements,
+    and find demonstration videos.
+  </p>
+
+  <div class="exercise-stats">
+    <span>{{ total }} exercises available</span>
+    <span>Beginner and intermediate levels</span>
+    <span>Equipment and bodyweight exercises</span>
+  </div>
+</section>
+
+<section class="exercise-search-panel">
+  <h2>Search and filter</h2>
+
+  <form
+    action="{{ url_for('exercise_library.exercise_list') }}"
+    method="get"
+    class="exercise-filters"
+  >
+    <label>
+      Search exercises
+
+      <input
+        type="search"
+        name="q"
+        value="{{ search }}"
+        placeholder="e.g. squat, core, dumbbell"
+        maxlength="100"
+      >
+    </label>
+
+    <label>
+      Muscle group
+
+      <select name="muscle">
+        <option value="">All muscle groups</option>
+
+        {% for group in muscles %}
+          <option
+            value="{{ group }}"
+            {% if muscle == group %}selected{% endif %}
+          >
+            {{ group }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Difficulty
+
+      <select name="difficulty">
+        <option value="">All levels</option>
+
+        {% for level in difficulties %}
+          <option
+            value="{{ level }}"
+            {% if difficulty == level %}selected{% endif %}
+          >
+            {{ level }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div class="exercise-filter-actions">
+      <button type="submit" class="button">
+        Find exercises
+      </button>
+
+      <a href="/exercises" class="exercise-reset">
+        Clear filters
+      </a>
+    </div>
+  </form>
+</section>
+
+{% if selected %}
+
+<section class="exercise-detail" id="exercise-details">
+  <div class="exercise-detail-top">
+    <div>
+      <p class="eyebrow">EXERCISE GUIDE</p>
+      <h2>{{ selected.name }}</h2>
+    </div>
+
+    <a href="/exercises" class="exercise-close">
+      Back to library
+    </a>
+  </div>
+
+  <div class="exercise-tags">
+    <span>{{ selected.muscle }}</span>
+    <span>{{ selected.difficulty }}</span>
+    <span>{{ selected.equipment }}</span>
+  </div>
+
+  <h3>Step-by-step instructions</h3>
+
+  <ol class="exercise-instructions">
+    {% for step in selected.steps %}
+      <li>{{ step }}</li>
+    {% endfor %}
+  </ol>
+
+  <div class="exercise-tip">
+    <strong>Form tip</strong>
+    <p>{{ selected.tips }}</p>
+  </div>
+
+  <div class="exercise-video">
+    <h3>Video demonstration</h3>
+
+    <p class="muted">
+      Find a demonstration of this exercise on YouTube.
+      Review the video source and instructor before following it.
+    </p>
+
+    <a
+      href="{{ selected.video_url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="exercise-video-link"
+    >
+      ▶ Find {{ selected.name }} videos
+    </a>
+  </div>
+
+  <p class="exercise-safety">
+    Choose movements appropriate for your ability.
+    Stop if an exercise causes pain or dizziness.
+  </p>
+</section>
+
+{% endif %}
+
+<section class="exercise-results">
+  <div class="exercise-results-heading">
+    <h2>Exercise collection</h2>
+
+    <p class="muted">
+      {{ exercises|length }} result{% if exercises|length != 1 %}s{% endif %}
+    </p>
+  </div>
+
+  {% if exercises %}
+
+  <div class="exercise-grid">
+
+    {% for item in exercises %}
+
+    <article class="exercise-card">
+      <div class="exercise-card-art">
+        <span class="exercise-card-symbol">
+          {% if item.muscle == 'Cardio' %}
+            ♥
+          {% elif item.muscle == 'Core' %}
+            ◎
+          {% elif item.muscle == 'Legs' %}
+            ↟
+          {% elif item.muscle == 'Arms' %}
+            ◆
+          {% elif item.muscle == 'Chest' %}
+            ◇
+          {% elif item.muscle == 'Back' %}
+            ↗
+          {% elif item.muscle == 'Shoulders' %}
+            ✦
+          {% else %}
+            ●
+          {% endif %}
+        </span>
+
+        <span class="exercise-art-label">
+          {{ item.muscle }}
+        </span>
+      </div>
+
+      <div class="exercise-card-content">
+        <h3>{{ item.name }}</h3>
+
+        <div class="exercise-tags">
+          <span>{{ item.difficulty }}</span>
+          <span>{{ item.equipment }}</span>
+        </div>
+
+        <p class="exercise-preview">
+          {{ item.steps[0] }}
+        </p>
+
+        <div class="exercise-card-actions">
+          <a
+            class="exercise-guide-button"
+            href="{{ url_for(
+              'exercise_library.exercise_list',
+              exercise=item.slug
+            ) }}#exercise-details"
+          >
+            View guide
+          </a>
+
+          <a
+            class="exercise-watch-link"
+            href="{{ item.video_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Find demonstration videos for {{ item.name }}"
+          >
+            ▶ Videos
+          </a>
+        </div>
+      </div>
+    </article>
+
+    {% endfor %}
+
+  </div>
+
+  {% else %}
+
+  <div class="exercise-empty">
+    <h3>No exercises found</h3>
+
+    <p>
+      Try another search term, muscle group,
+      or difficulty level.
+    </p>
+
+    <a href="/exercises" class="button">
+      Show all exercises
+    </a>
+  </div>
+
+  {% endif %}
+</section>
+
+{% include 'almond.html' %}
+
+{% endblock %}

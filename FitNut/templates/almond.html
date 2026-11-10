@@ -1,0 +1,13 @@
+<section class="almond" aria-labelledby="almond-title">
+  <div class="section-top">
+    <h2 id="almond-title">Ask Almond</h2>
+    <span class="hint">Coming soon</span>
+  </div>
+  <p>Your FitNut companion for meal and workout ideas.</p>
+  <label for="almond-question">What would you like help with?</label>
+  <textarea id="almond-question" rows="3" aria-describedby="almond-note" placeholder="{% if kind == 'food' %}Ask about meal ideas…{% elif kind == 'activity' %}Ask about workout ideas…{% else %}Ask about meals or workouts…{% endif %}" disabled></textarea>
+  <div class="almond-actions">
+    <p class="hint" id="almond-note">Almond will be here soon.</p>
+    <button class="button" type="button" disabled>Ask Almond</button>
+  </div>
+</section>

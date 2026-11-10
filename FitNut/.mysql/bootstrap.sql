@@ -1,4 +1,0 @@
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'LHRiIMLQctt3GKWdNf9BDBnds4t24+zrD/sW36n04bc=!aA1';
-CREATE DATABASE IF NOT EXISTS fitnut;
-CREATE USER 'fitnut_app'@'localhost' IDENTIFIED BY 'FxSNUdBWXp7VZ+u7RdYG4LcGyu6RLW74rSpHoBB4cps=!aA1';
-GRANT SELECT, INSERT, UPDATE, DELETE ON fitnut.* TO 'fitnut_app'@'localhost';

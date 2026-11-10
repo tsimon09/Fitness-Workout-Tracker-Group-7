@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{ settings.title }} · FitNut{% endblock %}
+{% block content %}
+<h1>{{ settings.title }} records</h1>
+<div class="journal-layout">
+<section class="panel entry-panel"><h2 id="entry-title">Add {{ kind }}</h2>
+<form id="log-form" data-api="/{{ kind }}-logs" data-kind="{{ kind }}">
+{% if kind == 'food' %}
+  <label>Add to meal<select name="eating_event_id"><option value="">New meal</option>{% for meal in meals %}<option value="{{ meal.eating_event_id }}">{{ meal.meal_type|capitalize }} — {{ meal.event_datetime[:10] }} {{ meal.event_datetime[11:16] }} UTC</option>{% endfor %}</select></label>
+  <p class="hint">Choose an existing meal to add another food. Its meal type and time will be reused.</p>
+  <label>Food name<input name="food_name" placeholder="e.g. Oatmeal" maxlength="150" required></label>
+  <div class="field-pair"><label>Quantity<input name="quantity" type="number" step="0.001" min="0.001" required></label><label>Unit<input name="quantity_unit" list="units" placeholder="g, cup, serving…" maxlength="30" required></label></div>
+  <datalist id="units">{% for unit in units %}<option value="{{ unit.unit_name }}">{% endfor %}</datalist>
+  <label>Meal<select name="meal_type" required><option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="dinner">Dinner</option><option value="snack">Snack</option></select></label>
+  <label>When<input name="logged_at" type="datetime-local" data-now required></label>
+  <label>Meal notes <span class="optional">optional, for a new meal</span><textarea name="meal_notes" rows="2" maxlength="2000"></textarea></label>
+  <p class="hint">Optional nutrition for this whole entry, from your food label.</p>
+  <div class="field-pair"><label>Calories<input name="calories" type="number" step="0.01" min="0"></label><label>Protein (g)<input name="protein_g" type="number" step="0.01" min="0"></label></div>
+  <div class="field-pair"><label>Carbs (g)<input name="carbs_g" type="number" step="0.01" min="0"></label><label>Fat (g)<input name="fat_g" type="number" step="0.01" min="0"></label></div>
+  <label>Fiber (g)<input name="fiber_g" type="number" step="0.01" min="0"></label>
+{% elif kind == 'activity' %}
+  <label>Activity<input name="activity_name" list="activities" placeholder="e.g. Walking" maxlength="100" required></label>
+  <datalist id="activities">{% for activity in activities %}<option value="{{ activity.activity_name }}">{% endfor %}</datalist>
+  <div class="field-pair"><label>Duration (minutes)<input name="duration_minutes" type="number" step="0.01" min="0.01" required></label><label>Calories burned<input name="calories_burned" type="number" step="0.01" min="0"></label></div>
+  <label>Started<input name="performed_at" type="datetime-local" data-now required></label>
+  <p class="hint">The finish time is calculated from the start time and duration.</p>
+  <label>Notes <span class="optional">optional</span><textarea name="notes" maxlength="2000" rows="3" placeholder="How did it go?"></textarea></label>
+{% else %}
+  <label>Sleep started<input name="sleep_start" type="datetime-local" required></label>
+  <label>Woke up<input name="sleep_end" type="datetime-local" required></label>
+  <label>Sleep quality <span class="optional">optional</span><select name="sleep_quality"><option value="">Choose a rating</option><option value="1">1 · Very poor</option><option value="2">2 · Poor</option><option value="3">3 · Fair</option><option value="4">4 · Good</option><option value="5">5 · Very good</option></select></label>
+  <label>Notes <span class="optional">optional</span><textarea name="notes" maxlength="2000" rows="3" placeholder="How did you feel when you woke up?"></textarea></label>
+{% endif %}
+  <p class="form-message" role="alert" hidden></p><div class="actions"><button class="button" type="submit">Save entry</button><button type="button" class="secondary" id="cancel-edit" hidden>Cancel edit</button></div>
+</form></section>
+<div>
+<section class="panel history-panel"><div class="section-top"><h2>Your entries</h2><span class="pill">{{ records|length }} shown</span></div><p class="hint">Your latest 100 entries. Dates are shown in your local time.</p>
+{% if records %}
+<div class="record-list">
+{% for record in records %}
+<article class="record">
+  {% if kind == 'food' %}<div class="record-top"><h3>{{ record.food_name }}</h3><span class="tag">{{ record.meal_type|capitalize }}</span></div><p>{{ record.quantity }} {{ record.quantity_unit }}{% if record.calories is not none %} · {{ record.calories }} calories{% endif %}</p><p class="hint">Protein {{ record.protein_g if record.protein_g is not none else '—' }} g · Carbs {{ record.carbs_g if record.carbs_g is not none else '—' }} g · Fat {{ record.fat_g if record.fat_g is not none else '—' }} g</p><time data-date="{{ record.logged_at }}">{{ record.logged_at }}</time>
+  {% elif kind == 'activity' %}<div class="record-top"><h3>{{ record.activity_name }}</h3><span class="tag">{{ record.duration_minutes }} min</span></div><p>{% if record.calories_burned is not none %}{{ record.calories_burned }} calories burned{% else %}Calories not entered{% endif %}</p><time data-date="{{ record.performed_at }}">{{ record.performed_at }}</time>{% if record.notes %}<p class="note-text">{{ record.notes }}</p>{% endif %}
+  {% else %}<div class="record-top"><h3>Sleep</h3><span class="tag">{{ record.sleep_quality|string + '/5' if record.sleep_quality is not none else 'Unrated' }}</span></div><p>From <time data-date="{{ record.sleep_start }}">{{ record.sleep_start }}</time><br>To <time data-date="{{ record.sleep_end }}">{{ record.sleep_end }}</time></p>{% if record.notes %}<p class="note-text">{{ record.notes }}</p>{% endif %}
+  {% endif %}
+  <div class="record-actions"><button class="text-button" type="button" data-edit="{{ record[settings.id] }}">Edit</button><button class="text-button danger" type="button" data-delete="{{ record[settings.id] }}">Delete</button></div>
+  {% if kind == 'food' %}<p class="hint">Meal #{{ record.eating_event_id }} · Fiber {{ record.fiber_g if record.fiber_g is not none else '—' }} g</p>{% if record.meal_notes %}<p class="note-text">{{ record.meal_notes }}</p>{% endif %}{% elif kind == 'activity' %}<p>Finished: <time data-date="{{ record.time_finished }}">{{ record.time_finished }}</time></p>{% endif %}
+</article>
+{% endfor %}
+</div>
+{% else %}<p>No entries yet.</p>{% endif %}
+</section>
+{% if kind in ['food', 'activity'] %}{% include 'almond.html' %}{% endif %}
+</div>
+</div>
+<script type="application/json" id="record-data">{{ records|tojson }}</script>
+{% endblock %}

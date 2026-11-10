@@ -1,4 +1,0 @@
-2026-11-10T04:29:49.898202Z 0 [System] [MY-013169] [Server] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe (mysqld 8.0.46) initializing of server in progress as process 13956
-2026-11-10T04:29:49.936963Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
-2026-11-10T04:29:50.533657Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
-2026-11-10T04:29:52.018945Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: Icr7=/+R:BXj
