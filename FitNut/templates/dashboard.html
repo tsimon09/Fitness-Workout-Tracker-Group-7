@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% block title %}Dashboard · FitNut{% endblock %}
+{% block content %}
+<section class="dashboard-heading">
+  <div><p class="eyebrow">YOUR HEALTH OVERVIEW</p><h1>Welcome back, {{ g.user.first_name }}!</h1>
+    <p class="muted">Your food, movement, and sleep records in one place.</p></div>
+  <form class="dashboard-filters" method="get" action="/dashboard">
+    <label>View by
+      <select name="period" aria-label="Dashboard period">
+        <option value="day" {% if summary.period == 'day' %}selected{% endif %}>Daily</option>
+        <option value="week" {% if summary.period == 'week' %}selected{% endif %}>Weekly</option>
+        <option value="month" {% if summary.period == 'month' %}selected{% endif %}>Monthly</option>
+      </select>
+    </label>
+    <label>Choose date<input type="date" name="date" value="{{ summary.selected }}" required></label>
+    <button class="button" type="submit">Apply</button>
+  </form>
+</section>
+<p class="dashboard-range">Showing {{ summary.start }}{% if summary.end != summary.start %} to {{ summary.end }}{% endif %}</p>
+<section class="dashboard-cards" aria-label="Summary statistics">
+  <article class="dashboard-card"><span class="card-icon">🍽</span><h2>Calories consumed</h2>
+    <p class="card-value">{% if summary.food.calorie_entries %}{{ '{:,.0f}'.format(summary.food.calories) }} <small>kcal</small>{% else %}—{% endif %}</p>
+    <p class="muted">{{ summary.food.entries }} food entries{% if summary.food.entries and summary.food.calorie_entries < summary.food.entries %} · Some calories not entered{% endif %}</p>
+    <a href="/food">Log food →</a></article>
+  <article class="dashboard-card"><span class="card-icon">🔥</span><h2>Calories burned</h2>
+    <p class="card-value">{% if summary.activity.calorie_entries %}{{ '{:,.0f}'.format(summary.activity.calories) }} <small>kcal</small>{% else %}—{% endif %}</p>
+    <p class="muted">{{ summary.activity.entries }} activities{% if summary.activity.entries and summary.activity.calorie_entries < summary.activity.entries %} · Some calories not entered{% endif %}</p>
+    <a href="/activity">Log activity →</a></article>
+  <article class="dashboard-card"><span class="card-icon">🏃</span><h2>Activity duration</h2>
+    <p class="card-value">{% if summary.activity.entries %}{{ '{:,.0f}'.format(summary.activity.minutes) }} <small>min</small>{% else %}—{% endif %}</p>
+    <p class="muted">Total recorded activity time</p><a href="/activity">View activities →</a></article>
+  <article class="dashboard-card"><span class="card-icon">🌙</span><h2>Sleep duration</h2>
+    <p class="card-value">{% if summary.sleep.entries %}{{ summary.sleep.hours }} <small>hrs</small>{% else %}—{% endif %}</p>
+    <p class="muted">{% if summary.sleep.quality is not none %}Average quality: {{ summary.sleep.quality }}/5{% elif summary.sleep.entries %}No quality ratings recorded{% else %}No sleep records yet{% endif %}</p>
+    <a href="/sleep">Log sleep →</a></article>
+</section>
+<section class="dashboard-two-col">
+  <article class="panel dashboard-section"><div class="section-top"><h2>Nutrition breakdown</h2><a href="/food">Food log →</a></div>
+    {% if summary.food.entries %}
+    <div class="macro-grid">
+      <div><span>Protein</span><strong>{{ summary.food.protein }} g</strong></div>
+      <div><span>Carbohydrates</span><strong>{{ summary.food.carbs }} g</strong></div>
+      <div><span>Fat</span><strong>{{ summary.food.fat }} g</strong></div>
+    </div>
+    <p class="muted">Totals include only nutrition values entered in your food records. Missing values are not estimated.</p>
+    {% else %}<p class="empty-state">No food records for this period. <a href="/food">Add your first meal</a>.</p>{% endif %}
+  </article>
+  <article class="panel dashboard-section"><div class="section-top"><h2>At a glance</h2></div>
+    <div class="overview-row"><span>Food entries</span><strong>{{ summary.food.entries }}</strong></div>
+    <div class="overview-row"><span>Activities logged</span><strong>{{ summary.activity.entries }}</strong></div>
+    <div class="overview-row"><span>Sleep logs</span><strong>{{ summary.sleep.entries }}</strong></div>
+    {% if not (summary.food.entries or summary.activity.entries or summary.sleep.entries) %}
+      <p class="empty-state">No records found for this period. Start logging to see your progress here.</p>
+    {% endif %}
+  </article>
+</section>
+<section class="panel dashboard-section"><div class="section-top"><h2>Daily trends</h2><span class="muted">{{ summary.period|capitalize }} view</span></div>
+  {% if summary.food.calorie_entries or summary.activity.entries %}
+    <div class="chart-legend"><span><i class="legend-dot food-dot"></i> Food calories (kcal)</span><span><i class="legend-dot activity-dot"></i> Activity (minutes)</span></div>
+    <div class="trend-chart" role="img" aria-label="Daily bar chart of logged food calories and activity minutes. Exact values are listed below.">
+      {% for day in summary.days %}
+      <div class="trend-day" title="{{ day.label }}: {{ day.calories }} kcal, {{ day.minutes }} minutes">
+        <div class="trend-bars"><span class="trend-bar food-bar bar-level-{{ day.calories_level }}"></span><span class="trend-bar activity-bar bar-level-{{ day.minutes_level }}"></span></div>
+        <span class="trend-label">{{ day.label if summary.period != 'month' or loop.index == 1 or loop.index % 5 == 0 else day.date[-2:] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <details class="chart-details"><summary>View exact daily values</summary>
+      <div class="table-scroll"><table><thead><tr><th>Date</th><th>Food calories</th><th>Activity minutes</th></tr></thead><tbody>
+      {% for day in summary.days %}<tr><td>{{ day.date }}</td><td>{{ day.calories }}</td><td>{{ day.minutes }}</td></tr>{% endfor %}
+      </tbody></table></div>
+    </details>
+  {% else %}<p class="empty-state">No calorie or activity data available for the selected period.</p>{% endif %}
+</section>
+{% include 'almond.html' %}
+{% endblock %}

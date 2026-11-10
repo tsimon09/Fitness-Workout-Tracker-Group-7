@@ -1,0 +1,8 @@
+.mysql/
+.env*
+.postman/
+.venv/
+__pycache__/
+*.pyc
+tests/
+scripts/verify-database.ps1
